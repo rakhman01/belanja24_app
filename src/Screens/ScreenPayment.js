@@ -5,9 +5,13 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
+  StyleSheet,
+  Clipboard,
 } from 'react-native';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import React, {useEffect, useState} from 'react';
-import {getPaymentChain} from '../Assets/API/postAPI';
+import {getPaymentChain, uploadProofOfPayment} from '../Assets/API/postAPI';
 import {getFromRedux} from '../Assets/API/GetRedux';
 import LoadingPage from '../Component/LoadingPage';
 import {
@@ -22,28 +26,109 @@ import RenderHtml from 'react-native-render-html';
 import {useWindowDimensions} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import {InvoiceGenerate} from '../Assets/API/getAPI';
+import * as ImagePicker from 'react-native-image-picker';
+import {ImagePickerModal} from '../Component/ImagePickerModal';
+import {colors, dimensions, font} from '../config/constant';
+import ImageBase64 from 'react-native-image-base64';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ScreenPayment = ({navigation, route}) => {
-  //   console.log(props);
   const chain_id = route.params.data;
   const token = getFromRedux('token');
-
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [dataPayment, setDataPayment] = useState({
     status: false,
     data: [],
   });
   const {width} = useWindowDimensions();
+  const [pickerResponse, setPickerResponse] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   const [source, setSource] = useState({
-    html: `<p>hahah</p>`,
+    html: `<p></p>`,
   });
+
+  const manageImage = async response => {
+    if (response.didCancel) {
+      return;
+    } else if (response.assets) {
+      if (response.assets?.length > 0) {
+        setImage(response.assets[0].base64 ? response.assets[0].base64 : '');
+      }
+    }
+  };
+
+  const onImageLibraryPress = React.useCallback(() => {
+    const options = {
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: true,
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      setPickerResponse(response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const {uri} = response.assets[0];
+        // Mengonversi gambar ke base64 menggunakan react-native-image-base64
+        ImageBase64.getBase64String(uri)
+          .then(base64Data => {
+            // Set state atau lakukan operasi lain sesuai kebutuhan
+            setImage(`data:image/jpeg;base64,${base64Data}`);
+          })
+          .catch(error => {
+            console.error('Error converting image to base64:', error);
+          });
+      }
+      setVisible(false);
+    });
+  }, []);
+
+  const onCameraPress = React.useCallback(() => {
+    const options = {
+      saveToPhotos: true,
+      mediaType: 'photo',
+      includeBase64: true,
+    };
+    ImagePicker.launchCamera(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const {uri} = response.assets[0];
+        // Mengonversi gambar ke base64 menggunakan react-native-image-base64
+        ImageBase64.getBase64String(uri)
+          .then(base64Data => {
+            // console.log('Base64 Data:', base64Data);
+            // Set state atau lakukan operasi lain sesuai kebutuhan
+            setImage(`data:image/jpeg;base64,${base64Data}`);
+          })
+          .catch(error => {
+            console.error('Error converting image to base64:', error);
+          });
+      }
+      setPickerResponse(response);
+      setVisible(false);
+    });
+  }, []);
+
+  const uri = pickerResponse?.assets && pickerResponse.assets[0].uri;
 
   useEffect(() => {
     getPaymentChain(token, {chain_id}, res => {
-      //   console.log(res.data.data.how_to_pay);
-      setSource({
-        html: `<div style="color:black;">${res.data.data.how_to_pay}</div>`,
-      });
+      if (res.data.data.how_to_pay !== null) {
+        setSource({
+          html: `<div style="color:black;">${res.data.data.how_to_pay}</div>`,
+        });
+      } else {
+        setSource({
+          html: `<div style="color:black;">pembayaran Manual</div>`,
+        });
+      }
       setDataPayment({
         status: true,
         data: res.data.data,
@@ -51,11 +136,14 @@ const ScreenPayment = ({navigation, route}) => {
     });
   }, []);
 
+  const copyToClipboard = params => {
+    Clipboard.setString(params);
+    alert('copied to clipboard');
+  };
+
   const createPDF = () => {
     InvoiceGenerate(token, chain_id, async res => {
-      // console.log(res.data.data);
       const data = res.data.data.results[0];
-      // console.log(data);
 
       let options = {
         html: `
@@ -164,7 +252,6 @@ ${data.items.map(val => {
         directory: 'Documents',
       };
       let file = await RNHTMLtoPDF.convert(options);
-      // console.log(file.filePath);
       alert(file.filePath);
     });
   };
@@ -174,11 +261,11 @@ ${data.items.map(val => {
       style={{
         flex: 1,
         backgroundColor: 'white',
-        padding: adjust(10),
+        padding: RFValue(10),
       }}>
       <ScrollView>
         <Text
-          style={{color: blueB2C, fontSize: adjust(12), fontWeight: 'bold'}}>
+          style={{color: blueB2C, fontSize: RFValue(12), fontWeight: 'bold'}}>
           Screen Pembayaran
         </Text>
         <View
@@ -186,7 +273,7 @@ ${data.items.map(val => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginVertical: adjust(10),
+            marginVertical: RFValue(10),
           }}>
           <Image
             source={{uri: dataPayment.data.payment_method_ava}}
@@ -199,37 +286,154 @@ ${data.items.map(val => {
           <Text
             style={{
               color: GrayMedium,
-              fontSize: adjust(10),
+              fontSize: RFValue(10),
               fontWeight: 'bold',
             }}>
             {dataPayment.data.title}
           </Text>
-          <Text
+          <View
             style={{
-              color: blueB2C,
-              fontSize: adjust(12),
-              fontWeight: 'bold',
-              marginTop: adjust(5),
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: adjust(6),
             }}>
-            {dataPayment.data.account_number}
-          </Text>
+            <Text
+              style={{
+                color: blueB2C,
+                fontSize: RFValue(12),
+                fontWeight: 'bold',
+                marginTop: RFValue(5),
+                marginRight: adjust(2),
+              }}>
+              {dataPayment.data.account_number}
+            </Text>
+            <TouchableOpacity
+              onPress={() => copyToClipboard(dataPayment.data.account_number)}>
+              <Icon
+                name="content-copy"
+                size={adjust(20)}
+                color={colors.primaryBlue}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <Text
           style={{
             color: GrayMedium,
-            fontSize: adjust(10),
+            fontSize: RFValue(10),
             fontWeight: 'bold',
-            marginTop: adjust(5),
+            marginTop: RFValue(5),
           }}>
           Bayar Sebelum
           {dataPayment.data.expired_date}
         </Text>
+
+        {dataPayment.data.status === 'INIT' ? (
+          <>
+            <Text
+              style={{
+                color: GrayMedium,
+                fontSize: RFValue(10),
+                fontWeight: 'bold',
+                marginTop: RFValue(5),
+              }}>
+              {dataPayment.data.title != 'Transfer Virtual Account'
+                ? 'Upload Bukti Pembayaran'
+                : 'Menunggu Konfirmasi'}
+            </Text>
+            {dataPayment.data.title != 'Transfer Virtual Account' ? (
+              <>
+                <Image style={styles.avatarImage} source={uri ? {uri} : ''} />
+                <TouchableOpacity
+                  style={{
+                    width: '100%',
+                    borderWidth: 1,
+                    borderColor: Gray,
+                    paddingVertical: RFValue(10),
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  onPress={() => setVisible(true)}>
+                  <Text
+                    style={{
+                      color: GrayMedium,
+                      fontSize: RFValue(10),
+                      fontWeight: 'bold',
+                    }}>
+                    Upload Images
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  disabled={image === null}
+                  style={{
+                    width: '100%',
+                    borderWidth: 1,
+                    borderColor: Gray,
+                    paddingVertical: RFValue(10),
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginVertical: RFValue(2),
+                  }}
+                  onPress={() => {
+                    setLoading(true);
+                    uploadProofOfPayment(
+                      token,
+                      {chain_id: chain_id, proof: image},
+                      val => {
+                        if (val.data.message === 'Approved') {
+                          getPaymentChain(token, {chain_id}, res => {
+                            if (res.data.data.how_to_pay !== null) {
+                              setSource({
+                                html: `<div style="color:black;">${res.data.data.how_to_pay}</div>`,
+                              });
+                            } else {
+                              setSource({
+                                html: `<div style="color:black;">pembayaran Manual</div>`,
+                              });
+                            }
+                            setDataPayment({
+                              status: true,
+                              data: res.data.data,
+                            });
+                          });
+                          setLoading(false);
+                        }
+                      },
+                    );
+                  }}>
+                  {loading ? (
+                    <ActivityIndicator size="small" color={font.colors.blue} />
+                  ) : (
+                    <Text
+                      style={{
+                        color: font.colors.blue,
+                        fontSize: RFValue(10),
+                        fontWeight: 'bold',
+                      }}>
+                      Upload Bukti Pembayaran
+                    </Text>
+                  )}
+                </TouchableOpacity>
+                {/* </View> */}
+                <ImagePickerModal
+                  isVisible={visible}
+                  onClose={() => setVisible(false)}
+                  onImageLibraryPress={onImageLibraryPress}
+                  onCameraPress={onCameraPress}
+                />
+              </>
+            ) : null}
+          </>
+        ) : null}
+
         <RenderHtml contentWidth={width} source={source} />
         <TouchableOpacity
           style={{
             borderWidth: 1,
             borderColor: Gray,
-            paddingVertical: adjust(10),
+            paddingVertical: RFValue(10),
             display: 'flex',
             alignItems: 'center',
           }}
@@ -239,7 +443,7 @@ ${data.items.map(val => {
           <Text
             style={{
               color: GrayMedium,
-              fontSize: adjust(10),
+              fontSize: RFValue(10),
               fontWeight: 'bold',
             }}>
             Cetak Invoice
@@ -249,16 +453,16 @@ ${data.items.map(val => {
           style={{
             borderWidth: 1,
             borderColor: blueB2C,
-            paddingVertical: adjust(10),
+            paddingVertical: RFValue(10),
             display: 'flex',
             alignItems: 'center',
-            marginTop: adjust(10),
+            marginTop: RFValue(10),
           }}
           onPress={() => {
             navigation.navigate('TransactionsStack');
           }}>
           <Text
-            style={{color: blueB2C, fontSize: adjust(10), fontWeight: 'bold'}}>
+            style={{color: blueB2C, fontSize: RFValue(10), fontWeight: 'bold'}}>
             Cek Transaction
           </Text>
         </TouchableOpacity>
@@ -268,5 +472,35 @@ ${data.items.map(val => {
     <LoadingPage />
   );
 };
+
+const styles = StyleSheet.create({
+  avatar: {
+    width: dimensions.width * 1,
+    alignItems: 'center',
+    // marginTop: '40%',
+  },
+  avatarImage: {
+    width: dimensions.width * 1,
+    height: dimensions.height * 0.2,
+    backgroundColor: colors.background, // Warna lapisan transparan di atas gambar
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: RFValue(10),
+    borderRadius: RFValue(8),
+    marginVertical: RFValue(2),
+  },
+  addButton: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: Gray,
+    paddingVertical: RFValue(10),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  addButtonIcon: {
+    height: 54,
+    width: 54,
+  },
+});
 
 export default ScreenPayment;

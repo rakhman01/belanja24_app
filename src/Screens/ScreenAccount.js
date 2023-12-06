@@ -8,10 +8,10 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
 import React from 'react';
 import {useState} from 'react';
 import {
-  adjust,
   blueB2C,
   Gray,
   GrayMedium,
@@ -88,13 +88,13 @@ const ScreenAccount = props => {
       style={{
         flex: 1,
         backgroundColor: 'white',
-        padding: adjust(10),
+        padding: RFValue(10),
       }}>
       <View
         style={{
           width: '100%',
           height: '10%',
-          marginTop: adjust(18),
+          marginTop: RFValue(18),
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -111,10 +111,10 @@ const ScreenAccount = props => {
       </View>
       <Text
         style={{
-          fontSize: adjust(16),
+          fontSize: RFValue(16),
           fontWeight: 'bold',
           color: blueB2C,
-          marginTop: adjust(8),
+          marginTop: RFValue(8),
         }}>
         Detail Profile
       </Text>
@@ -123,8 +123,8 @@ const ScreenAccount = props => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginHorizontal: adjust(8),
-            marginVertical: adjust(12),
+            marginHorizontal: RFValue(8),
+            marginVertical: RFValue(12),
           }}>
           <Text
             onPress={() => setPage('account')}
@@ -153,7 +153,7 @@ const ScreenAccount = props => {
         </View>
         {page === 'account' ? (
           address.status === true ? (
-            <View style={{marginTop: adjust(5)}}>
+            <View style={{marginTop: RFValue(5)}}>
               <View
                 style={{
                   display: 'flex',
@@ -163,7 +163,7 @@ const ScreenAccount = props => {
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     fontWeight: 'bold',
                     color: GrayMedium,
                   }}>
@@ -180,11 +180,11 @@ const ScreenAccount = props => {
                 }}
                 style={{
                   borderWidth: 1,
-                  borderRadius: adjust(5),
+                  borderRadius: RFValue(5),
                   borderColor: GrayMedium,
                   height: 40,
                   color: 'black',
-                  paddingHorizontal: adjust(10),
+                  paddingHorizontal: RFValue(10),
                 }}
               />
               <View
@@ -193,11 +193,11 @@ const ScreenAccount = props => {
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  marginTop: adjust(10),
+                  marginTop: RFValue(10),
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     fontWeight: 'bold',
                     color: GrayMedium,
                   }}>
@@ -209,11 +209,11 @@ const ScreenAccount = props => {
                 value={dataUser.email}
                 style={{
                   borderWidth: 1,
-                  borderRadius: adjust(5),
+                  borderRadius: RFValue(5),
                   borderColor: GrayMedium,
                   height: 40,
                   color: 'black',
-                  paddingHorizontal: adjust(10),
+                  paddingHorizontal: RFValue(10),
                 }}
               />
               <View
@@ -222,11 +222,11 @@ const ScreenAccount = props => {
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  marginTop: adjust(10),
+                  marginTop: RFValue(10),
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     fontWeight: 'bold',
                     color: GrayMedium,
                   }}>
@@ -244,27 +244,27 @@ const ScreenAccount = props => {
                 value={dataUser.phone}
                 style={{
                   borderWidth: 1,
-                  borderRadius: adjust(5),
+                  borderRadius: RFValue(5),
                   borderColor: GrayMedium,
                   height: 40,
                   color: 'black',
-                  paddingHorizontal: adjust(10),
+                  paddingHorizontal: RFValue(10),
                 }}
               />
               {dataUser.name === '' || dataUser.phone === '' ? (
                 <TouchableOpacity
                   style={{
-                    paddingVertical: adjust(10),
+                    paddingVertical: RFValue(10),
                     backgroundColor: GrayMedium,
-                    marginTop: adjust(15),
-                    borderRadius: adjust(5),
+                    marginTop: RFValue(15),
+                    borderRadius: RFValue(5),
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
                   <Text
                     style={{
-                      fontSize: adjust(12),
+                      fontSize: RFValue(12),
                       fontWeight: 'bold',
                       color: 'white',
                     }}>
@@ -288,17 +288,17 @@ const ScreenAccount = props => {
                     )
                   }
                   style={{
-                    paddingVertical: adjust(10),
+                    paddingVertical: RFValue(10),
                     backgroundColor: blueB2C,
-                    marginTop: adjust(15),
-                    borderRadius: adjust(5),
+                    marginTop: RFValue(15),
+                    borderRadius: RFValue(5),
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
                   <Text
                     style={{
-                      fontSize: adjust(12),
+                      fontSize: RFValue(12),
                       fontWeight: 'bold',
                       color: 'white',
                     }}>
@@ -309,17 +309,17 @@ const ScreenAccount = props => {
               <TouchableOpacity
                 onPress={handleLogout}
                 style={{
-                  paddingVertical: adjust(10),
+                  paddingVertical: RFValue(10),
                   backgroundColor: 'red',
-                  marginTop: adjust(15),
-                  borderRadius: adjust(5),
+                  marginTop: RFValue(15),
+                  borderRadius: RFValue(5),
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(12),
+                    fontSize: RFValue(12),
                     fontWeight: 'bold',
                     color: 'white',
                   }}>
@@ -341,7 +341,11 @@ const ScreenAccount = props => {
         ) : address.status === true ? (
           <View style={{height: HeightScreen * 0.68}}>
             <Text
-              style={{fontSize: adjust(14), fontWeight: '400', color: 'black'}}>
+              style={{
+                fontSize: RFValue(14),
+                fontWeight: '400',
+                color: 'black',
+              }}>
               Alamat Pengiriman
             </Text>
             <FlatList
@@ -361,12 +365,12 @@ const ScreenAccount = props => {
                         style={{
                           display: 'flex',
                           flexDirection: 'row',
-                          marginVertical: adjust(2),
+                          marginVertical: RFValue(2),
                         }}>
                         <Text
                           style={[
                             styles.addres,
-                            {fontWeight: '400', marginRight: adjust(2)},
+                            {fontWeight: '400', marginRight: RFValue(2)},
                           ]}>
                           {item.recipient_name}
                         </Text>
@@ -401,12 +405,12 @@ const ScreenAccount = props => {
                         style={{
                           display: 'flex',
                           flexDirection: 'row',
-                          marginVertical: adjust(2),
+                          marginVertical: RFValue(2),
                         }}>
                         <Text
                           style={[
                             styles.addres,
-                            {fontWeight: '400', marginRight: adjust(2)},
+                            {fontWeight: '400', marginRight: RFValue(2)},
                           ]}>
                           {item.recipient_name}
                         </Text>
@@ -438,7 +442,7 @@ const ScreenAccount = props => {
                             <TouchableOpacity onPress={() => open.open()}>
                               <Text
                                 style={{
-                                  fontSize: adjust(12),
+                                  fontSize: RFValue(12),
                                   color: 'black',
                                 }}>
                                 Hapus
@@ -457,14 +461,14 @@ const ScreenAccount = props => {
                           return (
                             <View
                               style={{
-                                padding: adjust(10),
+                                padding: RFValue(10),
                                 backgroundColor: 'white',
                                 width: WidthScreen * 0.8,
-                                borderRadius: adjust(5),
+                                borderRadius: RFValue(5),
                               }}>
                               <Text
                                 style={{
-                                  fontSize: adjust(14),
+                                  fontSize: RFValue(14),
                                   fontWeight: '400',
                                   color: 'black',
                                 }}>
@@ -472,9 +476,9 @@ const ScreenAccount = props => {
                               </Text>
                               <Text
                                 style={{
-                                  fontSize: adjust(12),
+                                  fontSize: RFValue(12),
                                   fontWeight: '300',
-                                  marginTop: adjust(4),
+                                  marginTop: RFValue(4),
                                   color: GrayMedium,
                                 }}>
                                 Aksi ini akan menghapus alamat yang di pilih
@@ -485,7 +489,7 @@ const ScreenAccount = props => {
                                 style={{
                                   display: 'flex',
                                   flexDirection: 'row',
-                                  marginTop: adjust(10),
+                                  marginTop: RFValue(10),
                                 }}>
                                 <TouchableOpacity
                                   onPress={close.close}
@@ -493,14 +497,14 @@ const ScreenAccount = props => {
                                     flex: 1,
                                     borderRadius: 4,
                                     backgroundColor: Gray,
-                                    padding: adjust(6),
+                                    padding: RFValue(6),
                                     display: 'flex',
                                     alignItems: 'center',
-                                    marginRight: adjust(2),
+                                    marginRight: RFValue(2),
                                   }}>
                                   <Text
                                     style={{
-                                      fontSize: adjust(12),
+                                      fontSize: RFValue(12),
                                       color: GrayMedium,
                                     }}>
                                     Cencel
@@ -514,14 +518,14 @@ const ScreenAccount = props => {
                                     flex: 1,
                                     backgroundColor: 'red',
                                     borderRadius: 4,
-                                    padding: adjust(6),
+                                    padding: RFValue(6),
                                     display: 'flex',
                                     alignItems: 'center',
-                                    marginLeft: adjust(2),
+                                    marginLeft: RFValue(2),
                                   }}>
                                   <Text
                                     style={{
-                                      fontSize: adjust(12),
+                                      fontSize: RFValue(12),
                                       color: 'white',
                                     }}>
                                     Lanjutkan
@@ -538,7 +542,7 @@ const ScreenAccount = props => {
                         }>
                         <Text
                           style={{
-                            fontSize: adjust(10),
+                            fontSize: RFValue(10),
                             color: 'white',
                             padding: 4,
                             borderRadius: 2,
@@ -560,18 +564,18 @@ const ScreenAccount = props => {
                   <TouchableOpacity
                     onPress={() => open.open()}
                     style={{
-                      paddingVertical: adjust(10),
+                      paddingVertical: RFValue(10),
                       backgroundColor: blueB2C,
-                      marginTop: adjust(15),
-                      marginBottom: adjust(10),
-                      borderRadius: adjust(5),
+                      marginTop: RFValue(15),
+                      marginBottom: RFValue(10),
+                      borderRadius: RFValue(5),
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
                     <Text
                       style={{
-                        fontSize: adjust(12),
+                        fontSize: RFValue(12),
                         fontWeight: 'bold',
                         color: 'white',
                       }}>
@@ -591,14 +595,14 @@ const ScreenAccount = props => {
                 return (
                   <View
                     style={{
-                      padding: adjust(10),
+                      padding: RFValue(10),
                       backgroundColor: 'white',
                       width: WidthScreen * 0.9,
-                      borderRadius: adjust(5),
+                      borderRadius: RFValue(5),
                     }}>
                     <Text
                       style={{
-                        fontSize: adjust(14),
+                        fontSize: RFValue(14),
                         fontWeight: 'bold',
                         color: blueB2C,
                       }}>
@@ -631,22 +635,22 @@ const ScreenAccount = props => {
           width: WidthScreen * 0.4,
           height: 50,
           resizeMode: 'contain',
-          marginVertical: adjust(10),
+          marginVertical: RFValue(10),
         }}
       />
       {/* SCREENVIEW */}
       <View
         style={{
           width: WidthScreen * 0.9,
-          borderRadius: adjust(10),
+          borderRadius: RFValue(10),
           // height: HeightScreen * 0.6,
           backgroundColor: 'white',
-          paddingHorizontal: adjust(15),
-          paddingVertical: adjust(15),
+          paddingHorizontal: RFValue(15),
+          paddingVertical: RFValue(15),
         }}>
         <Text
           style={{
-            fontSize: adjust(12),
+            fontSize: RFValue(12),
             fontWeight: 'bold',
             color: blueB2C,
           }}>
@@ -656,7 +660,7 @@ const ScreenAccount = props => {
         </Text>
         <Text
           style={{
-            fontSize: adjust(12),
+            fontSize: RFValue(12),
             fontWeight: 'bold',
             color: blueB2C,
           }}>
@@ -693,7 +697,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
   },
   page: {
-    fontSize: adjust(14),
+    fontSize: RFValue(14),
     fontWeight: '500',
     color: 'black',
   },
@@ -701,7 +705,7 @@ const styles = StyleSheet.create({
     width: WidthScreen * 0.9,
     padding: 4,
     borderRadius: 4,
-    marginVertical: adjust(8),
+    marginVertical: RFValue(8),
     backgroundColor: 'white',
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 1},
@@ -710,7 +714,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   addres: {
-    fontSize: adjust(12),
+    fontSize: RFValue(12),
     fontWeight: '300',
     color: 'black',
   },

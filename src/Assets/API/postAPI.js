@@ -1,7 +1,6 @@
 import {API, API2} from './API';
 
 export const inquiryBasic = async callback => {
-  //   console.log(data);
   await API.post('/login/inquiry-basic', {role: 'USER'})
     .then(response => {
       callback(response);
@@ -50,7 +49,6 @@ export const RessetPassword = async (data, callback) => {
 };
 
 export const UpdateProfile = async (token = '', data, callback) => {
-  //   console.log(data);
   await API.post('/customer-sys/profile', data, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -139,7 +137,6 @@ export const postMessage = async (token, data, callback) => {
 /////AUTHENTICATION///////////
 
 export const loginBasic = async (data, callback) => {
-  //   console.log(data);
   await API.post('/login/basic', data)
     .then(response => {
       callback({status: true, response: response.data.data});
@@ -150,7 +147,6 @@ export const loginBasic = async (data, callback) => {
 };
 
 export const RegisterBasic = async (data, callback) => {
-  //   console.log(data);
   await API.post('/register/basic', data)
     .then(regist => {
       callback({status: true, response: regist.data});
@@ -213,7 +209,6 @@ export const deleteAddress = async (token = '', params, data) => {
 };
 
 export const setPrimaryAddress = async (token = '', params, data) => {
-  console.log(token, params);
   await API.post(
     `/customer-sys/profile/address/${params}/set-primary`,
     undefined,
@@ -227,11 +222,26 @@ export const setPrimaryAddress = async (token = '', params, data) => {
     .catch(err => console.log(err));
 };
 
-export const gotoPayment = async (data, callback) => {
-  await API.post(`/customer-sys/buy-process/submit`, data)
+export const gotoPayment = async (token = '', data, callback) => {
+  await API.post(`/customer-sys/buy-process/submit`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then(val => callback(val))
     .catch(err => console.log(err));
 };
+
+export const uploadProofOfPayment = async (token = '', data, callback) => {
+  await API.post(`/customer-sys/payments`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(val => callback(val))
+    .catch(err => console.log(err, 'val'));
+};
+
 export const getPaymentChain = async (token = '', data, callback) => {
   await API.post(`/customer-sys/transaction/bill-detail`, data, {
     headers: {

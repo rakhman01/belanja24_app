@@ -86,7 +86,10 @@ const ProductPopular = ({props}) => {
                       </Text>
                     </View>
                     <Text style={{fontSize: adjust(8), color: 'black'}}>
-                      terjual {item.sell}
+                      terjual{' '}
+                      {Math.floor(Math.random() * (100 - 50 + 1)) +
+                        20 +
+                        item.sell}
                     </Text>
                   </View>
                 </View>

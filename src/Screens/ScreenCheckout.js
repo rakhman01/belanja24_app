@@ -7,6 +7,7 @@ import {
   FlatList,
   Modal,
 } from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
 import React, {useEffect} from 'react';
 import {getFromRedux} from '../Assets/API/GetRedux';
 import {CheckShipping, getCheckout, gotoPayment} from '../Assets/API/postAPI';
@@ -16,7 +17,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {CommonActions, useIsFocused} from '@react-navigation/native';
 import {StackActions} from '@react-navigation/native';
 import {
-  adjust,
   blueB2C,
   formatter,
   Gray,
@@ -95,7 +95,6 @@ const ScreenCheckout = ({navigation}) => {
             data: val.items,
           };
         });
-        console.log(data, 'data');
         setDataCheckout({
           status: true,
           data,
@@ -150,7 +149,7 @@ const ScreenCheckout = ({navigation}) => {
   return !dataCheckout.status || !dataAddress.status ? (
     <LoadingPage />
   ) : (
-    <SafeAreaView style={{padding: adjust(5), backgroundColor: 'white'}}>
+    <SafeAreaView style={{padding: RFValue(5), backgroundColor: 'white'}}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -167,14 +166,14 @@ const ScreenCheckout = ({navigation}) => {
           }}>
           <View
             style={{
-              padding: adjust(10),
+              padding: RFValue(10),
               backgroundColor: 'white',
               width: WidthScreen * 0.8,
-              borderRadius: adjust(5),
+              borderRadius: RFValue(5),
             }}>
             <Text
               style={{
-                fontSize: adjust(14),
+                fontSize: RFValue(14),
                 fontWeight: '400',
                 color: 'black',
               }}>
@@ -182,9 +181,9 @@ const ScreenCheckout = ({navigation}) => {
             </Text>
             <Text
               style={{
-                fontSize: adjust(12),
+                fontSize: RFValue(12),
                 fontWeight: '300',
-                marginTop: adjust(4),
+                marginTop: RFValue(4),
                 color: GrayMedium,
               }}>
               Kamu belum memiliki alamat pengiriman, Yuk tambah alamat
@@ -195,7 +194,7 @@ const ScreenCheckout = ({navigation}) => {
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                marginTop: adjust(10),
+                marginTop: RFValue(10),
               }}>
               <TouchableOpacity
                 onPress={() => setModalVisible(!modalVisible)}
@@ -203,14 +202,14 @@ const ScreenCheckout = ({navigation}) => {
                   flex: 1,
                   borderRadius: 4,
                   backgroundColor: 'red',
-                  padding: adjust(6),
+                  padding: RFValue(6),
                   display: 'flex',
                   alignItems: 'center',
-                  marginRight: adjust(2),
+                  marginRight: RFValue(2),
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(12),
+                    fontSize: RFValue(12),
                     color: 'white',
                   }}>
                   Tutup
@@ -228,7 +227,7 @@ const ScreenCheckout = ({navigation}) => {
                 style={{
                   color: blueB2C,
                   fontWeight: 'bold',
-                  fontSize: adjust(15),
+                  fontSize: RFValue(15),
                 }}>
                 Checkout
               </Text>
@@ -237,11 +236,11 @@ const ScreenCheckout = ({navigation}) => {
                   flex: 1,
                   // height: HeightScreen * 0.14,
                   // backgroundColor: 'red',
-                  marginVertical: adjust(10),
+                  marginVertical: RFValue(10),
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     color: 'black',
                     fontWeight: 'bold',
                   }}>
@@ -249,7 +248,7 @@ const ScreenCheckout = ({navigation}) => {
                 </Text>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     color: blueB2C,
                     fontWeight: 'bold',
                   }}>
@@ -257,7 +256,7 @@ const ScreenCheckout = ({navigation}) => {
                 </Text>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     color: 'black',
                     fontWeight: 'bold',
                   }}>
@@ -265,9 +264,9 @@ const ScreenCheckout = ({navigation}) => {
                 </Text>
                 <Text
                   style={{
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     color: 'black',
-                    marginTop: adjust(5),
+                    marginTop: RFValue(5),
                   }}>
                   {addressDefault.shipping_address}
                 </Text>
@@ -284,18 +283,18 @@ const ScreenCheckout = ({navigation}) => {
                           style={{
                             borderColor: blueB2C,
                             borderWidth: 1,
-                            marginTop: adjust(10),
+                            marginTop: RFValue(10),
                             justifyContent: 'center',
                             alignItems: 'center',
-                            padding: adjust(5),
-                            borderRadius: adjust(5),
+                            padding: RFValue(5),
+                            borderRadius: RFValue(5),
                           }}>
                           <Text
                             style={{
-                              fontSize: adjust(10),
+                              fontSize: RFValue(10),
                               color: blueB2C,
                               fontWeight: 'bold',
-                              // marginTop: adjust(5),
+                              // marginTop: RFValue(5),
                             }}>
                             Pilih Alamat Lain
                           </Text>
@@ -314,7 +313,7 @@ const ScreenCheckout = ({navigation}) => {
                               <Text>Choose Address</Text>
                             </View>
                           )}
-                          contentContainerStyle={{padding: adjust(10)}}
+                          contentContainerStyle={{padding: RFValue(10)}}
                           renderItem={({item, index}) => {
                             return (
                               <TouchableOpacity
@@ -324,11 +323,11 @@ const ScreenCheckout = ({navigation}) => {
                                   close();
                                 }}
                                 style={{
-                                  marginBottom: adjust(5),
+                                  marginBottom: RFValue(5),
                                   borderWidth: 1,
                                   borderColor: blueB2C,
-                                  borderRadius: adjust(5),
-                                  padding: adjust(5),
+                                  borderRadius: RFValue(5),
+                                  padding: RFValue(5),
                                   display: 'flex',
                                   flexDirection: 'row',
                                 }}>
@@ -337,14 +336,14 @@ const ScreenCheckout = ({navigation}) => {
                                     style={{
                                       color: blueB2C,
                                       fontWeight: 'bold',
-                                      fontSize: adjust(10),
+                                      fontSize: RFValue(10),
                                     }}>
                                     {item.name}
                                   </Text>
                                   <Text
                                     style={{
                                       color: 'black',
-                                      fontSize: adjust(10),
+                                      fontSize: RFValue(10),
                                     }}>
                                     {item.recipient_name}
                                   </Text>
@@ -352,7 +351,7 @@ const ScreenCheckout = ({navigation}) => {
                                     style={{
                                       color: 'black',
 
-                                      fontSize: adjust(10),
+                                      fontSize: RFValue(10),
                                     }}>
                                     {item.shipping_address}
                                   </Text>
@@ -360,7 +359,7 @@ const ScreenCheckout = ({navigation}) => {
                                     style={{
                                       color: 'black',
 
-                                      fontSize: adjust(10),
+                                      fontSize: RFValue(10),
                                     }}>
                                     {item.district}, {item.city},{' '}
                                     {item.province},{item.postal_code}
@@ -369,9 +368,9 @@ const ScreenCheckout = ({navigation}) => {
                                 {item.is_main && (
                                   <View
                                     style={{
-                                      width: adjust(5),
+                                      width: RFValue(5),
                                       backgroundColor: blueB2C,
-                                      borderRadius: adjust(5),
+                                      borderRadius: RFValue(5),
                                     }}></View>
                                 )}
                               </TouchableOpacity>
@@ -390,18 +389,18 @@ const ScreenCheckout = ({navigation}) => {
                         style={{
                           borderColor: blueB2C,
                           borderWidth: 1,
-                          marginTop: adjust(10),
+                          marginTop: RFValue(10),
                           justifyContent: 'center',
                           alignItems: 'center',
-                          padding: adjust(5),
-                          borderRadius: adjust(5),
+                          padding: RFValue(5),
+                          borderRadius: RFValue(5),
                         }}>
                         <Text
                           style={{
-                            fontSize: adjust(10),
+                            fontSize: RFValue(10),
                             color: blueB2C,
                             fontWeight: 'bold',
-                            // marginTop: adjust(5),
+                            // marginTop: RFValue(5),
                           }}>
                           Tambah Alamat
                         </Text>
@@ -412,14 +411,14 @@ const ScreenCheckout = ({navigation}) => {
                     return (
                       <View
                         style={{
-                          padding: adjust(10),
+                          padding: RFValue(10),
                           backgroundColor: 'white',
                           width: WidthScreen * 0.9,
-                          borderRadius: adjust(5),
+                          borderRadius: RFValue(5),
                         }}>
                         <Text
                           style={{
-                            fontSize: adjust(14),
+                            fontSize: RFValue(14),
                             fontWeight: 'bold',
                             color: blueB2C,
                           }}>
@@ -450,8 +449,8 @@ const ScreenCheckout = ({navigation}) => {
           return (
             <View
               style={{
-                marginVertical: adjust(5),
-                padding: adjust(5),
+                marginVertical: RFValue(5),
+                padding: RFValue(5),
                 backgroundColor: Gray,
               }}>
               {item.products.map((item, i) => (
@@ -464,18 +463,18 @@ const ScreenCheckout = ({navigation}) => {
                       resizeMode: 'contain',
                     }}
                   />
-                  <View style={{marginLeft: adjust(5)}}>
+                  <View style={{marginLeft: RFValue(5)}}>
                     <Text
                       style={{
                         color: 'black',
-                        fontSize: adjust(10),
+                        fontSize: RFValue(10),
                       }}>
                       {item.title}
                     </Text>
                     <Text
                       style={{
                         color: 'black',
-                        fontSize: adjust(10),
+                        fontSize: RFValue(10),
                       }}>
                       {item.price_f}
                     </Text>
@@ -503,13 +502,13 @@ const ScreenCheckout = ({navigation}) => {
               <TouchableOpacity
                 style={{
                   backgroundColor: Gray,
-                  padding: adjust(5),
-                  borderRadius: adjust(3),
+                  padding: RFValue(5),
+                  borderRadius: RFValue(3),
                 }}>
                 <Text
                   style={{
                     color: 'white',
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     fontWeight: 'bold',
                   }}>
                   Pilih Pengiriman
@@ -520,7 +519,7 @@ const ScreenCheckout = ({navigation}) => {
         }}
         ListFooterComponent={() => {
           return (
-            <View style={{marginTop: adjust(10)}}>
+            <View style={{marginTop: RFValue(10)}}>
               <View
                 style={{
                   flex: 1,
@@ -530,7 +529,7 @@ const ScreenCheckout = ({navigation}) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(11),
+                    fontSize: RFValue(11),
                     fontWeight: 'bold',
                     color: blueB2C,
                   }}>
@@ -539,7 +538,7 @@ const ScreenCheckout = ({navigation}) => {
                 <Text
                   style={{
                     color: blueB2C,
-                    fontSize: adjust(11),
+                    fontSize: RFValue(11),
                   }}>
                   {formatter(calculateTotalProduct(dataCheckout.data))},
                 </Text>
@@ -551,11 +550,11 @@ const ScreenCheckout = ({navigation}) => {
                   flexDirection: 'row',
                   alignItems: 'center',
                   borderBottomWidth: 1,
-                  paddingBottom: adjust(5),
+                  paddingBottom: RFValue(5),
                 }}>
                 <Text
                   style={{
-                    fontSize: adjust(11),
+                    fontSize: RFValue(11),
                     fontWeight: 'bold',
                     color: blueB2C,
                   }}>
@@ -564,7 +563,7 @@ const ScreenCheckout = ({navigation}) => {
                 <Text
                   style={{
                     color: blueB2C,
-                    fontSize: adjust(11),
+                    fontSize: RFValue(11),
                   }}>
                   {formatter(calculateOngkirProduct(selectShipping))}
                 </Text>
@@ -575,12 +574,12 @@ const ScreenCheckout = ({navigation}) => {
                   justifyContent: 'space-between',
                   flexDirection: 'row',
                   alignItems: 'center',
-                  marginTop: adjust(5),
+                  marginTop: RFValue(5),
                 }}>
                 <Text
                   style={{
                     color: 'black',
-                    fontSize: adjust(11),
+                    fontSize: RFValue(11),
                     fontWeight: 'bold',
                     color: 'black',
                   }}>
@@ -589,7 +588,7 @@ const ScreenCheckout = ({navigation}) => {
                 <Text
                   style={{
                     color: 'black',
-                    fontSize: adjust(11),
+                    fontSize: RFValue(11),
                   }}>
                   {formatter(
                     calculateOngkirProduct(selectShipping) +
@@ -602,10 +601,10 @@ const ScreenCheckout = ({navigation}) => {
               {dataCheckout.data.length != selectShipping.length ? (
                 <TouchableOpacity
                   style={{
-                    marginTop: adjust(10),
-                    paddingVertical: adjust(8),
+                    marginTop: RFValue(10),
+                    paddingVertical: RFValue(8),
                     backgroundColor: Gray,
-                    borderRadius: adjust(5),
+                    borderRadius: RFValue(5),
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -629,15 +628,15 @@ const ScreenCheckout = ({navigation}) => {
                           flexDirection: 'row',
                           alignItems: 'center',
                           borderWidth: 1,
-                          marginVertical: adjust(10),
-                          padding: adjust(5),
-                          borderRadius: adjust(5),
+                          marginVertical: RFValue(10),
+                          padding: RFValue(5),
+                          borderRadius: RFValue(5),
                           borderColor: blueB2C,
                         }}>
                         <Image
                           source={{uri: selectPayment.ava}}
                           style={{
-                            width: adjust(WidthScreen * 0.1),
+                            width: RFValue(WidthScreen * 0.1),
                             height: WidthScreen * 0.1,
                             resizeMode: 'contain',
                           }}
@@ -645,9 +644,9 @@ const ScreenCheckout = ({navigation}) => {
                         <Text
                           style={{
                             color: 'black',
-                            fontSize: adjust(10),
+                            fontSize: RFValue(10),
                             fontWeight: 'bold',
-                            marginLeft: adjust(10),
+                            marginLeft: RFValue(10),
                           }}>
                           {selectPayment.name}
                         </Text>
@@ -658,10 +657,10 @@ const ScreenCheckout = ({navigation}) => {
                           open();
                         }}
                         style={{
-                          marginTop: adjust(10),
-                          paddingVertical: adjust(8),
+                          marginTop: RFValue(10),
+                          paddingVertical: RFValue(8),
                           backgroundColor: blueB2C,
-                          borderRadius: adjust(5),
+                          borderRadius: RFValue(5),
                           display: 'flex',
                           flexDirection: 'row',
                           justifyContent: 'center',
@@ -685,15 +684,15 @@ const ScreenCheckout = ({navigation}) => {
                       <View
                         style={{
                           width: WidthScreen * 0.8,
-                          padding: adjust(5),
+                          padding: RFValue(5),
                           backgroundColor: 'white',
                         }}>
                         <Text
                           style={{
                             fontWeight: 'bold',
-                            fontSize: adjust(12),
+                            fontSize: RFValue(12),
                             color: 'black',
-                            marginBottom: adjust(10),
+                            marginBottom: RFValue(10),
                           }}>
                           Pilih Pembayaran
                         </Text>
@@ -703,7 +702,7 @@ const ScreenCheckout = ({navigation}) => {
                               <Text
                                 style={{
                                   fontWeight: 'bold',
-                                  fontSize: adjust(11),
+                                  fontSize: RFValue(11),
                                   color: 'black',
                                 }}>
                                 {val.type_literal}
@@ -720,9 +719,9 @@ const ScreenCheckout = ({navigation}) => {
                                       flexDirection: 'row',
                                       alignItems: 'center',
                                       borderWidth: 1,
-                                      marginVertical: adjust(5),
-                                      padding: adjust(5),
-                                      borderRadius: adjust(5),
+                                      marginVertical: RFValue(5),
+                                      padding: RFValue(5),
+                                      borderRadius: RFValue(5),
                                       borderColor: selectPayment
                                         ? selectPayment.code === met.code &&
                                           blueB2C
@@ -731,7 +730,7 @@ const ScreenCheckout = ({navigation}) => {
                                     <Image
                                       source={{uri: met.ava}}
                                       style={{
-                                        width: adjust(WidthScreen * 0.1),
+                                        width: RFValue(WidthScreen * 0.1),
                                         height: WidthScreen * 0.1,
                                         resizeMode: 'contain',
                                       }}
@@ -739,9 +738,9 @@ const ScreenCheckout = ({navigation}) => {
                                     <Text
                                       style={{
                                         color: 'black',
-                                        fontSize: adjust(10),
+                                        fontSize: RFValue(10),
                                         fontWeight: 'bold',
-                                        marginLeft: adjust(10),
+                                        marginLeft: RFValue(10),
                                       }}>
                                       {met.name}
                                     </Text>
@@ -758,37 +757,48 @@ const ScreenCheckout = ({navigation}) => {
               )}
 
               {dataCheckout.data.length != selectShipping.length && (
-                <Text style={{color: 'red', fontSize: adjust(10)}}>
+                <Text style={{color: 'red', fontSize: RFValue(10)}}>
                   pilih pengiriman belum lengkap !
                 </Text>
               )}
               {selectPayment && (
                 <TouchableOpacity
                   onPress={() => {
-                    // console.log(selectPayment, selectShipping, addressDefault);
-
                     const warehouse = dataCheckout.data.map(val => {
                       return val.data[0].warehouse.id;
                     });
+
                     const couriers = selectShipping.map(val => {
                       return {
                         // provider_id: val.id_provider,
                         courier_service: val.service,
                         courier_service_type: val.service_type,
-                        warehouse_id: warehouse[0],
                       };
                     });
 
+                    const newArray = [];
+
+                    for (
+                      let i = 0;
+                      i < Math.min(warehouse.length, couriers.length);
+                      i++
+                    ) {
+                      const newObj = {
+                        warehouse_id: warehouse[i],
+                        courier_service: couriers[i].courier_service,
+                        courier_service_type: couriers[i].courier_service_type,
+                      };
+                      newArray.push(newObj);
+                    }
+
                     const DataPost = {
                       address_id: addressDefault.id,
-                      couriers: couriers,
+                      couriers: newArray,
                       payment_method: selectPayment.type,
                       payment_provider: selectPayment.vendor,
                     };
 
-                    console.log(DataPost.couriers);
-
-                    gotoPayment(DataPost, val => {
+                    gotoPayment(token, DataPost, val => {
                       navigation.dispatch(
                         StackActions.replace('Payment', {
                           data: val.data.data,
@@ -797,10 +807,10 @@ const ScreenCheckout = ({navigation}) => {
                     });
                   }}
                   style={{
-                    marginTop: adjust(10),
-                    paddingVertical: adjust(8),
+                    marginTop: RFValue(10),
+                    paddingVertical: RFValue(8),
                     backgroundColor: Green,
-                    borderRadius: adjust(5),
+                    borderRadius: RFValue(5),
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',

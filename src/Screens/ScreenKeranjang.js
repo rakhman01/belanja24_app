@@ -9,13 +9,14 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import React from 'react';
 import {useEffect} from 'react';
 import {getDataCart} from '../Assets/API/getAPI';
 import {getFromRedux} from '../Assets/API/GetRedux';
 import {useState} from 'react';
 import LoadingPage from '../Component/LoadingPage';
-import {adjust, blueB2C, formatter, Gray, GrayMedium} from '../Assets/utils';
+import {blueB2C, formatter, Gray, GrayMedium} from '../Assets/utils';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import CardKeranjang from '../Component/CardKeranjang';
 import {useIsFocused} from '@react-navigation/native';
@@ -151,9 +152,9 @@ const ScreenKeranjang = ({navigation}) => {
         }}>
         <Text
           style={{
-            marginBottom: adjust(10),
+            marginBottom: RFValue(10),
             color: 'black',
-            fontSize: adjust(10),
+            fontSize: RFValue(10),
           }}>
           Belum Ada Apapun di Keranjang
         </Text>
@@ -165,7 +166,7 @@ const ScreenKeranjang = ({navigation}) => {
       </View>
     ) : (
       <SafeAreaView
-        style={{flex: 1, backgroundColor: 'white', padding: adjust(5)}}>
+        style={{flex: 1, backgroundColor: 'white', padding: RFValue(5)}}>
         <SectionList
           sections={dataCart.data}
           keyExtractor={item => {
@@ -191,7 +192,7 @@ const ScreenKeranjang = ({navigation}) => {
               <View
                 style={{
                   backgroundColor: blueB2C,
-                  padding: adjust(5),
+                  padding: RFValue(5),
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -199,17 +200,17 @@ const ScreenKeranjang = ({navigation}) => {
                 <Image
                   source={{uri: dataHeader.logo}}
                   style={{
-                    width: adjust(25),
-                    height: adjust(25),
-                    borderRadius: adjust(10),
+                    width: RFValue(25),
+                    height: RFValue(25),
+                    borderRadius: RFValue(10),
                   }}
                 />
                 <Text
                   style={{
                     color: 'white',
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                     fontWeight: 'bold',
-                    marginLeft: adjust(10),
+                    marginLeft: RFValue(10),
                   }}>
                   {dataHeader.title}
                 </Text>
@@ -220,13 +221,13 @@ const ScreenKeranjang = ({navigation}) => {
         <View
           style={{
             display: 'flex',
-            paddingVertical: adjust(10),
-            borderRadius: adjust(5),
+            paddingVertical: RFValue(10),
+            borderRadius: RFValue(5),
           }}>
           <Text
             style={{
               color: 'black',
-              fontSize: adjust(10),
+              fontSize: RFValue(10),
               fontWeight: 'bold',
             }}>
             Total Belanja : {formatter(TotalBelanja)}
@@ -251,14 +252,14 @@ const ScreenKeranjang = ({navigation}) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              padding: adjust(10),
-              borderRadius: adjust(5),
-              marginTop: adjust(5),
+              padding: RFValue(10),
+              borderRadius: RFValue(5),
+              marginTop: RFValue(5),
             }}>
             <Text
               style={{
                 color: 'white',
-                fontSize: adjust(10),
+                fontSize: RFValue(10),
                 fontWeight: 'bold',
               }}>
               Beli sekarang
@@ -272,14 +273,14 @@ const ScreenKeranjang = ({navigation}) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              padding: adjust(10),
-              borderRadius: adjust(5),
-              marginTop: adjust(5),
+              padding: RFValue(10),
+              borderRadius: RFValue(5),
+              marginTop: RFValue(5),
             }}>
             <Text
               style={{
                 color: 'white',
-                fontSize: adjust(10),
+                fontSize: RFValue(10),
                 fontWeight: 'bold',
               }}>
               Kembali Belanja

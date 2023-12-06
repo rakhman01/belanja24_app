@@ -17,7 +17,10 @@ export const getPopularProduct = async (slug, callback) => {
 };
 export const getPopularStore = async (slug, callback) => {
   await API.get('/guest-sys/fade/featured-provider', {
-    params: {provider_type: 'ECOMMERCE', preference_city: slug},
+    params: {
+      provider_type: 'ECOMMERCE,ECOMMERCE_RESELLER',
+      preference_city: slug,
+    },
   })
     .then(store => callback(store))
     .catch(err => console.log(err));

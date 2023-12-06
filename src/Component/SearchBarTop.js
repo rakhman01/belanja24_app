@@ -1,12 +1,6 @@
 import {View, Image, TextInput, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
-import {
-  adjust,
-  blueB2C,
-  HeightScreen,
-  logoB2CLink,
-  WidthScreen,
-} from '../Assets/utils';
+import {blueB2C, HeightScreen, logoB2CLink, WidthScreen} from '../Assets/utils';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ChatIcon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
@@ -27,7 +21,7 @@ const SearchBarTop = props => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
-        paddingHorizontal: adjust(8),
+        paddingHorizontal: RFValue(8),
       }}>
       <View
         style={{

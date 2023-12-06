@@ -10,9 +10,11 @@ import {
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {Picker} from '@react-native-picker/picker';
-import {adjust, blueB2C, Gray, GrayMedium} from '../Assets/utils';
+import {blueB2C, Gray, GrayMedium} from '../Assets/utils';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import {postAddress, postPostalCode} from '../Assets/API/postAPI';
 import {getFromRedux} from '../Assets/API/GetRedux';
+import {font} from '../config/constant';
 
 const AddressForm = ({props}) => {
   const token = getFromRedux('token');
@@ -52,7 +54,7 @@ const AddressForm = ({props}) => {
       {({errors, touched, values, handleBlur, handleChange, handleSubmit}) => (
         <View
           style={{
-            marginTop: adjust(10),
+            marginTop: RFValue(10),
           }}>
           <Text style={styles.label}>Jenis Alamat</Text>
           <View
@@ -157,12 +159,12 @@ const AddressForm = ({props}) => {
                     justifyContent: 'space-between',
                     borderWidth: 1,
                     borderRadius: 4,
-                    paddingHorizontal: 4,
+                    // paddingHorizontal: 4,
                     borderColor: blueB2C,
-                    marginBottom: adjust(8),
+                    marginBottom: RFValue(8),
                   }}>
                   <TextInput
-                    placeholder="Bambang Irawan"
+                    placeholder="55581"
                     textContentType="none"
                     keyboardType="default"
                     autoCapitalize="none"
@@ -173,15 +175,15 @@ const AddressForm = ({props}) => {
                     onChangeText={handleChange('postal_code')}
                     onBlur={handleBlur('postal_code')}
                     style={{
-                      fontSize: adjust(12),
-                      paddingHorizontal: adjust(8),
+                      fontSize: RFValue(12),
+                      paddingHorizontal: RFValue(8),
                       color: 'black',
                     }}
                   />
                   <TouchableOpacity
                     style={{
-                      width: adjust(40),
-                      height: adjust(40),
+                      width: RFValue(40),
+                      height: RFValue(40),
                       display: 'flex',
                       borderRadius: 2,
                       alignItems: 'center',
@@ -193,7 +195,7 @@ const AddressForm = ({props}) => {
                       style={{
                         display: 'flex',
                         textAlign: 'center',
-                        fontSize: adjust(13),
+                        fontSize: RFValue(13),
                         color: 'white',
                       }}>
                       Cari...
@@ -202,19 +204,23 @@ const AddressForm = ({props}) => {
                 </View>
                 {/*  */}
                 {touched.postal_code && errors.postal_code && (
-                  <Text style={{color: 'red', fontSize: adjust(14)}}>
+                  <Text style={{color: 'red', fontSize: RFValue(14)}}>
                     {errors.postal_code}
                   </Text>
                 )}
                 {/* {postalAddress.length === 0 && addres === '' ? null : (
-                  <Text style={{color: 'red', fontSize: adjust(14)}}>
+                  <Text style={{color: 'red', fontSize: RFValue(14)}}>
                     Kode Post Anda Tidak Terdaftar
                   </Text>
                 )} */}
               </View>
             )}
           </Formik>
-          {addres.city === '' ? null : (
+          {addres.city === '' ? (
+            <Text style={styles.postalValueError}>
+              Kode pos yang anda masukan tidak terkait dengan alamat manapun{' '}
+            </Text>
+          ) : (
             <View
               style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
               <Text style={styles.postalValue}>{addres.district}</Text>
@@ -257,7 +263,7 @@ const AddressForm = ({props}) => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              marginTop: adjust(10),
+              marginTop: RFValue(10),
             }}>
             <TouchableOpacity
               onPress={close.close}
@@ -265,24 +271,26 @@ const AddressForm = ({props}) => {
                 flex: 1,
                 borderWidth: 1,
                 borderColor: 'red',
-                padding: adjust(10),
+                padding: RFValue(10),
                 display: 'flex',
                 alignItems: 'center',
-                marginRight: adjust(2),
+                marginRight: RFValue(2),
               }}>
-              <Text style={{fontSize: adjust(10), color: 'red'}}>Cencel</Text>
+              <Text style={{fontSize: RFValue(10), color: 'red'}}>Cencel</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleSubmit}
               style={{
                 flex: 1,
                 backgroundColor: blueB2C,
-                padding: adjust(10),
+                padding: RFValue(10),
                 display: 'flex',
                 alignItems: 'center',
-                marginLeft: adjust(2),
+                marginLeft: RFValue(2),
               }}>
-              <Text style={{fontSize: adjust(10), color: 'white'}}>Simpan</Text>
+              <Text style={{fontSize: RFValue(10), color: 'white'}}>
+                Simpan
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -293,7 +301,7 @@ const AddressForm = ({props}) => {
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: adjust(14),
+    fontSize: RFValue(14),
     fontWeight: '400',
     marginVertical: 6,
     color: 'black',
@@ -301,28 +309,35 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 4,
     borderWidth: 1,
-    padding: adjust(8),
-    fontSize: adjust(12),
-    marginBottom: adjust(8),
+    padding: RFValue(8),
+    fontSize: RFValue(12),
+    marginBottom: RFValue(8),
     backgroundColor: 'white',
     borderColor: blueB2C,
     color: 'black',
   },
   addres: {
-    fontSize: adjust(12),
+    fontSize: RFValue(12),
     fontWeight: '300',
     color: 'black',
   },
   postalValue: {
     margin: 2,
-    padding: adjust(4),
+    padding: RFValue(4),
     borderRadius: 4,
     backgroundColor: Gray,
-    fontSize: adjust(12),
+    fontSize: RFValue(12),
     color: 'black',
   },
+  postalValueError: {
+    margin: 2,
+    padding: RFValue(4),
+    borderRadius: 4,
+    fontSize: RFValue(12),
+    color: font.colors.danger,
+  },
   itemPicker: {
-    fontSize: adjust(10),
+    fontSize: RFValue(10),
     fontWeight: '400',
   },
 });

@@ -1,4 +1,6 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
+import {RFValue} from 'react-native-responsive-fontsize';
+
 import {
   Modal,
   Pressable,
@@ -56,10 +58,10 @@ const ModalComponent = ({
 
 const styles = StyleSheet.create({
   modalView: {
-    margin: 20,
+    margin: RFValue(20),
     backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
+    borderRadius: RFValue(20),
+    padding: RFValue(35),
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -71,8 +73,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: RFValue(20),
+    padding: RFValue(10),
     elevation: 2,
   },
   buttonOpen: {
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: RFValue(15),
     textAlign: 'center',
   },
 });

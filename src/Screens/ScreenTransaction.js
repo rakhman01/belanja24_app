@@ -1118,7 +1118,7 @@ const ScreenTransaction = ({navigation}) => {
                         />
                         {item.status === 'FINISH' ? (
                           <TouchableOpacity
-                            onPress={() => navigation.navigate('Beranda')}>
+                            onPress={() => navigation.navigate('Home')}>
                             <Text
                               style={{
                                 fontSize: adjust(10),
@@ -1149,8 +1149,7 @@ const ScreenTransaction = ({navigation}) => {
                 <Text style={[{marginTop: adjust(8)}, styles.mediumText]}>
                   Tidak Ada Transaksi yang belum di Bayar
                 </Text>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Beranda')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                   <Text
                     style={{
                       fontSize: adjust(13),

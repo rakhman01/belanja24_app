@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import {Modal, TouchableOpacity} from 'react-native';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
-import {
-  GrayMedium,
-  HeightScreen,
-  WidthScreen,
-  adjust,
-  blueB2C,
-} from '../Assets/utils';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import {GrayMedium, HeightScreen, WidthScreen, blueB2C} from '../Assets/utils';
 import {beliSekarang} from '../Assets/API/postAPI';
+import {font} from '../config/constant';
 
 const ModalPayProduct = ({props}) => {
   const {visible, setVisible, data, token, navigation} = props;
@@ -56,10 +52,10 @@ const ModalPayProduct = ({props}) => {
                   width: '100%',
                   height: '100%',
                   resizeMode: 'cover',
-                  padding: adjust(4),
+                  padding: RFValue(4),
                   borderWidth: 1,
                   borderColor: 'red',
-                  borderRadius: adjust(8),
+                  borderRadius: RFValue(8),
                 }}
               />
             </View>
@@ -67,11 +63,11 @@ const ModalPayProduct = ({props}) => {
               style={{
                 width: '60%',
                 justifyContent: 'flex-end',
-                paddingHorizontal: adjust(12),
+                paddingHorizontal: RFValue(12),
               }}>
               <Text
                 style={{
-                  fontSize: adjust(20),
+                  fontSize: RFValue(20),
                   fontWeight: '500',
                   color: 'red',
                 }}>
@@ -79,8 +75,18 @@ const ModalPayProduct = ({props}) => {
               </Text>
               <Text
                 style={{
+                  fontSize: font.size.small,
+                  color: font.colors.fontBlack,
+                }}>
+                {data.description}
+              </Text>
+              <Text
+                style={{
+                  fontSize: font.size.small,
+                  fontWeight: font.weight.medium,
                   color: GrayMedium,
                 }}>
+                {console.log(data)}
                 Stok: {data.stock}
               </Text>
             </View>
@@ -90,14 +96,15 @@ const ModalPayProduct = ({props}) => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              marginVertical: adjust(20),
+              marginVertical: RFValue(20),
             }}>
             <View style={{flex: 1}}>
               <Text
                 style={{
                   color: 'black',
-                  fontSize: adjust(13),
-                  marginVertical: adjust(5),
+                  fontSize: font.size.medium,
+                  fontWeight: font.weight.medium,
+                  marginVertical: RFValue(5),
                 }}>
                 Atur Jumlah
               </Text>
@@ -121,14 +128,14 @@ const ModalPayProduct = ({props}) => {
                 }}
                 style={{
                   backgroundColor: 'red',
-                  paddingVertical: adjust(5),
-                  paddingHorizontal: adjust(10),
-                  borderRadius: adjust(5),
+                  paddingVertical: RFValue(5),
+                  paddingHorizontal: RFValue(10),
+                  borderRadius: RFValue(5),
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{color: 'white', fontSize: adjust(10)}}>-</Text>
+                <Text style={{color: 'white', fontSize: RFValue(10)}}>-</Text>
               </Pressable>
               <View
                 style={{
@@ -140,7 +147,7 @@ const ModalPayProduct = ({props}) => {
                   style={{
                     fontWeight: 'bold',
                     color: 'black',
-                    fontSize: adjust(10),
+                    fontSize: RFValue(10),
                   }}>
                   {calculateItemCart.qty}
                 </Text>
@@ -157,14 +164,14 @@ const ModalPayProduct = ({props}) => {
                 }}
                 style={{
                   backgroundColor: blueB2C,
-                  paddingVertical: adjust(5),
-                  paddingHorizontal: adjust(10),
-                  borderRadius: adjust(5),
+                  paddingVertical: RFValue(5),
+                  paddingHorizontal: RFValue(10),
+                  borderRadius: RFValue(5),
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{color: 'white', fontSize: adjust(10)}}>+</Text>
+                <Text style={{color: 'white', fontSize: RFValue(10)}}>+</Text>
               </Pressable>
             </View>
           </View>
@@ -181,17 +188,17 @@ const ModalPayProduct = ({props}) => {
             style={{
               borderWidth: 1,
               borderColor: blueB2C,
-              borderRadius: adjust(5),
-              marginTop: adjust(10),
+              borderRadius: RFValue(5),
+              marginTop: RFValue(10),
               justifyContent: 'center',
               alignItems: 'center',
-              paddingVertical: adjust(10),
+              paddingVertical: RFValue(10),
             }}>
             <Text
               style={{
                 color: blueB2C,
                 fontWeight: 'bold',
-                fontSize: adjust(10),
+                fontSize: RFValue(10),
               }}>
               Beli Sekarang
             </Text>
@@ -201,17 +208,17 @@ const ModalPayProduct = ({props}) => {
             style={{
               borderWidth: 1,
               borderColor: 'red',
-              borderRadius: adjust(5),
-              marginTop: adjust(10),
+              borderRadius: RFValue(5),
+              marginTop: RFValue(10),
               justifyContent: 'center',
               alignItems: 'center',
-              paddingVertical: adjust(10),
+              paddingVertical: RFValue(10),
             }}>
             <Text
               style={{
                 color: 'red',
                 fontWeight: 'bold',
-                fontSize: adjust(10),
+                fontSize: RFValue(10),
               }}>
               Batalkan
             </Text>
@@ -232,12 +239,14 @@ const styles = StyleSheet.create({
   cardView: {
     width: WidthScreen * 1,
     height: HeightScreen * 0.4,
-    padding: adjust(8),
+    padding: RFValue(8),
     backgroundColor: 'white',
+    paddingHorizontal: RFValue(6),
+    paddingVertical: RFValue(8),
   },
   cartItem: {
     width: '100%',
-    height: '40%',
+    maxHeight: '40%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

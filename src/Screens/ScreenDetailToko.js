@@ -58,7 +58,6 @@ const ScreenDetailToko = props => {
     });
   };
 
-  console.log(props);
   useEffect(() => {
     getDetailStore(istoken, slug, res => {
       setDetailStore({status: true, data: res.data.data});
@@ -244,7 +243,10 @@ const ScreenDetailToko = props => {
                               {data.rate}
                             </Text>
                             <Text style={{fontSize: adjust(8), color: 'black'}}>
-                              terjual {data.sell}
+                              terjual{' '}
+                              {Math.floor(Math.random() * (100 - 50 + 1)) +
+                                20 +
+                                data.sell}
                             </Text>
                           </View>
                         </View>

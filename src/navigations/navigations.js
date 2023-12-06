@@ -12,6 +12,7 @@ import ScreenPersonalChat from '../Screens/ScreenPersonalChat';
 import ScreenCheckout from '../Screens/ScreenCheckout';
 import ScreenTransaction from '../Screens/ScreenTransaction';
 import ScreenPayment from '../Screens/ScreenPayment';
+import ScreenAllCategories from '../Screens/ScreenAllCategories';
 // screen
 
 const Stack = createNativeStackNavigator();
@@ -89,6 +90,13 @@ export const HomeStack = () => {
         // options={{headerShown: false}}
         name="Payment"
         component={ScreenPayment}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name="Categories"
+        component={ScreenAllCategories}
       />
     </Stack.Navigator>
   );

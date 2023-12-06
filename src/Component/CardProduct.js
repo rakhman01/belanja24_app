@@ -63,7 +63,8 @@ const CardProduct = props => {
               <Text style={{fontSize: adjust(8), color: 'black'}}>5.0</Text>
             </View>
             <Text style={{fontSize: adjust(8), color: 'black'}}>
-              terjual {props.sell}
+              terjual{' '}
+              {Math.floor(Math.random() * (100 - 50 + 1)) + 20 + props.sell}
             </Text>
           </View>
         </View>

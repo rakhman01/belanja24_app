@@ -16,24 +16,33 @@ import {getDataPopular} from '../Assets/API/getAPI';
 import AllLogo from '../Assets/Images/gridicon.png';
 
 const CategoryPopular = ({props}) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {name: 'Semua Kategory', ava: AllLogo, title: 'Semua Categori'},
+  ]);
   useEffect(() => {
     getDataPopular(callback => {
-      setData(callback);
+      const newData = [...data];
+
+      // Menambahkan elemen-elemen dari callback ke newData
+      newData.push(...callback);
+
+      // Mengatur newData sebagai nilai baru untuk state data
+      setData(newData);
     });
   }, []);
+  console.log(data);
   return (
     <View style={styles.container}>
       {/* <Text style={styles.title}>Kategori Populer</Text> */}
       {/* <View style={styles.content}>
         {[
-          {name: 'Buku', srcImg: '/'},
-          {name: 'Clothing', srcImg: '/'},
-          {name: 'Personal Care', srcImg: '/'},
-          {name: 'Rumah & Dapur', srcImg: '/'},
-          {name: 'Elektronik', srcImg: '/'},
-          {name: 'Sports', srcImg: '/'},
-          {name: 'Semua Kategory', srcImg: '/'},
+          {name: 'BukAllLogo: '/'},
+          {name: 'ClothinAllLogo: '/'},
+          {name: 'Personal CarAllLogo: '/'},
+          {name: 'Rumah & DapuAllLogo: '/'},
+          {name: 'ElektroniAllLogo: '/'},
+          {name: 'SportAllLogo: '/'},
+          {name: 'Semua KategorAllLogo: '/'},
         ].map((val, index) => {
           return (
             <TouchableOpacity
@@ -56,7 +65,7 @@ const CategoryPopular = ({props}) => {
                 borderRadius: 5,
                 borderColor: colors.grey,
               }}>
-              <Image source={val.srcImg} style={{width: adjust(50)}} />
+              <Image source={AllLogo} style={{width: adjust(50)}} />
               <Text
                 style={{
                   fontSize: adjust(8),
@@ -70,6 +79,7 @@ const CategoryPopular = ({props}) => {
         })}
       </View> */}
       <FlatList
+        style={{width: '100%'}}
         data={data}
         renderItem={({item}) => (
           <TouchableOpacity
@@ -81,16 +91,24 @@ const CategoryPopular = ({props}) => {
                   })
             }
             style={styles.menuItem}>
-            <Image
-              source={{uri: item.ava}}
-              style={{width: adjust(28), height: adjust(28)}}
-            />
+            {item.name === 'Semua Kategory' ? (
+              <Image
+                source={item.ava}
+                style={{width: adjust(28), height: adjust(28)}}
+              />
+            ) : (
+              <Image
+                source={{uri: item.ava}}
+                style={{width: adjust(28), height: adjust(28)}}
+              />
+            )}
             <Text style={styles.text}>{item.title}</Text>
           </TouchableOpacity>
         )}
         keyExtractor={(item, index) => index.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{flexGrow: 1}}
       />
     </View>
   );
