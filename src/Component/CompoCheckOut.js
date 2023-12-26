@@ -180,14 +180,14 @@ const CompoCheckOut = ({
                           {item.service}
                         </Text>
                       </View>
-                      <Text
+                      {/* <Text
                         style={{
                           color: 'black',
                           fontSize: adjust(10),
                           fontWeight: 'bold',
                         }}>
                         {item.etd_f}
-                      </Text>
+                      </Text> */}
                     </View>
                     <View>
                       <Text

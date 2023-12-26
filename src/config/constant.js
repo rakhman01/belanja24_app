@@ -1,5 +1,6 @@
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import {Dimensions} from 'react-native';
+import fontsFamily from '../../android/app/src/main/assets/fonts';
 
 export const colors = {
   background: '#FFFFFF',
@@ -34,9 +35,9 @@ export const font = {
     blue: '#6FB3F4',
   },
   size: {
-    mini: RFValue(10),
-    verySmall: RFValue(12),
-    small: RFValue(14),
+    mini: RFValue(7),
+    verySmall: RFValue(10),
+    small: RFValue(12),
     medium: RFValue(16),
     large: RFValue(18),
     extraLarge: RFValue(20),
@@ -46,6 +47,15 @@ export const font = {
     light: '200',
     medium: '500',
     bold: '700',
+  },
+  fontFamily: {
+    poppinsThin: fontsFamily.poppinsThin,
+    poppinsRegular: fontsFamily.poppinsRegular,
+    poppinsLight: fontsFamily.poppinsLight,
+    poppinsRegular: fontsFamily.poppinsRegular,
+    poppinsSemiBold: fontsFamily.poppinsSemiBold,
+    poppinsBold: fontsFamily.poppinsBold,
+    poppinsExtraBold: fontsFamily.poppinsExtraBold,
   },
 };
 export const dimensions = {

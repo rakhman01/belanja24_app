@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {colors, dimensions, font, image} from '../../config/constant';
 import LoginForm from '../../Component/LoginForm';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import fontsFamily from '../../../android/app/src/main/assets/fonts';
 
 // login with google
 import {
@@ -18,6 +20,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {useEffect} from 'react';
+import {adjust} from '../../Assets/utils';
 
 const LoginScreen = props => {
   // useEffect(() => {
@@ -81,9 +84,9 @@ const LoginScreen = props => {
   const {navigation} = props;
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        {/* <Image source={image.logo} style={styles.logo} /> */}
-        <Text style={styles.title}>Masuk ke akun anda</Text>
+      <View style={styles.header}>
+        <Image source={image.logo} style={styles.logo} />
+        <Text style={styles.title}>Masuk ke Akun Anda</Text>
       </View>
       <View style={{width: dimensions.width * 0.9}}>
         <LoginForm props={navigation} />
@@ -104,15 +107,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   logo: {
     width: dimensions.width * 0.3,
-    height: dimensions.height * 0.1,
+    // height: dimensions.height * 0.1,
     resizeMode: 'contain',
+    marginBottom: adjust(12),
   },
   title: {
-    fontSize: font.size.extraLarge,
-    fontWeight: '600',
+    fontSize: font.size.large,
+    // fontWeight: '700',
     color: colors.black,
+    fontFamily: font.fontFamily.poppinsSemiBold,
   },
 });
 

@@ -5,9 +5,10 @@ import {
   TextInput,
   StyleSheet,
   Button,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import {adjust, blueB2C, GrayMedium} from '../Assets/utils';
 import {Formik} from 'formik';
 import * as Keychain from 'react-native-keychain';
 import {useState} from 'react';
@@ -15,21 +16,21 @@ import {inquiryBasic, loginBasic} from '../Assets/API/postAPI';
 import DeviceInfo from 'react-native-device-info';
 import {LoginSchema} from '../Assets/ValidationSchema';
 import {useSelector, useDispatch} from 'react-redux';
-// import {useTheme, CommonActions} from '@react-navigation/native';
 
 import {validate} from '../Assets/API/getAPI';
-import {colors, font} from '../config/constant';
+import {colors, dimensions, font} from '../config/constant';
 import ToastModal from './ToastModal';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const LoginForm = ({props}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [message, setMessage] = useState('');
-  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const LoginForm = ({props}) => {
         validationSchema={LoginSchema}
         onSubmit={values => {
           DeviceInfo.getAndroidId().then(androidId => {
-            setIsLoadingLogin(true);
+            setLoading(true);
             inquiryBasic(response =>
               loginBasic(
                 {
@@ -82,22 +83,29 @@ const LoginForm = ({props}) => {
                     await Keychain.setGenericPassword('belanja24', token);
                     validate(valid => {
                       dispatch({type: 'setUser', data: valid.data.data});
-                      setIsLoadingLogin(false);
+                      setLoading(false);
                       props.navigate('AppStackScreen');
                     });
                   } else {
                     setMessage(res.response);
                     setModalVisible(!modalVisible);
-                    setIsLoadingLogin(false);
+                    setLoading(false);
                   }
                 },
               ),
             );
           });
         }}>
-        {({handleChange, handleSubmit, values, errors}) => (
-          <View style={{marginTop: adjust(10)}}>
-            <View style={{marginTop: adjust(5)}}>
+        {({
+          handleChange,
+          handleSubmit,
+          handleBlur,
+          values,
+          errors,
+          touched,
+        }) => (
+          <View style={{marginTop: RFValue(10)}}>
+            <View style={{marginTop: RFValue(5)}}>
               <View
                 style={{
                   display: 'flex',
@@ -106,17 +114,20 @@ const LoginForm = ({props}) => {
                   justifyContent: 'space-between',
                 }}>
                 <Text style={styles.label}>Email</Text>
-                <Text style={{color: 'red', fontSize: adjust(10)}}>
-                  {errors.email}
-                </Text>
               </View>
               <TextInput
                 onChangeText={handleChange('email')}
                 value={values.email}
+                onBlur={handleBlur('email')}
+                placeholder="jhon@gmail.com"
+                placeholderTextColor={font.colors.disable}
                 style={styles.input}
               />
+              {touched.email && errors.email && (
+                <Text style={styles.error}>{errors.email}</Text>
+              )}
             </View>
-            <View style={{marginVertical: adjust(5)}}>
+            <View style={{marginVertical: RFValue(5)}}>
               <View
                 style={{
                   display: 'flex',
@@ -125,46 +136,49 @@ const LoginForm = ({props}) => {
                   justifyContent: 'space-between',
                 }}>
                 <Text style={styles.label}>Password</Text>
-                <Text style={{color: 'red', fontSize: adjust(10)}}>
-                  {errors.password}
-                </Text>
               </View>
               <TextInput
                 onChangeText={handleChange('password')}
                 value={values.password}
+                onBlur={handleBlur('password')}
+                placeholder="*******"
+                placeholderTextColor={font.colors.disable}
                 secureTextEntry={true}
                 style={styles.input}
               />
+              {touched.password && errors.password && (
+                <Text style={styles.error}>{errors.password}</Text>
+              )}
             </View>
-            {/* <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{color: 'red', fontSize: adjust(10)}}>{message}</Text>
-          </View> */}
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
-                marginTop: adjust(4),
-                marginBottom: adjust(8),
+                marginTop: RFValue(4),
+                marginBottom: RFValue(8),
               }}>
               <Text style={styles.directiveText}>Lupa pasword?</Text>
               <Pressable onPress={() => props.navigate('ForgotPassword')}>
                 <Text style={styles.commandText}>Klik disini</Text>
               </Pressable>
             </View>
-            <Button title="Masuk" onPress={handleSubmit} />
-
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSubmit}
+              disabled={loading}>
+              {loading ? (
+                <ActivityIndicator color="white" />
+              ) : (
+                <Text style={styles.buttonText}>Login</Text>
+              )}
+            </TouchableOpacity>
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: adjust(12),
+                marginTop: RFValue(12),
                 justifyContent: 'center',
               }}>
               <Text style={styles.directiveText}>belum punya akun?</Text>
@@ -188,29 +202,48 @@ const LoginForm = ({props}) => {
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: adjust(font.size.small),
-    fontWeight: '600',
+    fontSize: RFValue(font.size.small),
+    fontFamily: font.fontFamily.poppinsRegular,
     color: font.colors.fontBlack,
-    marginBottom: adjust(4),
+    marginBottom: RFValue(4),
   },
   input: {
     borderWidth: 1,
-    borderRadius: adjust(5),
+    borderRadius: RFValue(5),
     borderColor: colors.disable,
     height: 40,
     color: 'black',
-    paddingHorizontal: adjust(10),
+    paddingHorizontal: RFValue(10),
+  },
+  button: {
+    backgroundColor: colors.primaryBlue,
+    padding: RFValue(6),
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: RFValue(font.size.small),
+    fontWeight: 'bold',
+    fontFamily: font.fontFamily.poppinsThin,
+    color: colors.white,
   },
   directiveText: {
-    fontSize: adjust(font.size.small),
-    // fontWeight: adjust(font.weight.light),
-    color: font.colors.disable,
+    fontSize: RFValue(font.size.small),
+    fontFamily: font.fontFamily.poppinsThin,
+    color: font.colors.fontBlack,
   },
   commandText: {
-    fontSize: adjust(font.size.small),
-    // fontWeight: adjust(font.weight.medium),
+    fontSize: RFValue(font.size.small),
+    fontFamily: font.fontFamily.poppinsLight,
     color: font.colors.blue,
-    marginLeft: adjust(4),
+    marginLeft: RFValue(4),
+  },
+  error: {
+    fontSize: RFValue(font.size.verySmall),
+    fontFamily: font.fontFamily.poppinsRegular,
+    color: font.colors.danger,
+    marginLeft: RFValue(4),
   },
 });
 

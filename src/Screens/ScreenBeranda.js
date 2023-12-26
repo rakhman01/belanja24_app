@@ -29,8 +29,11 @@ import {Picker} from '@react-native-picker/picker';
 import {postCityPreferenc} from '../Assets/API/postAPI';
 import CategoryPopular from '../Component/CategoryPopular';
 import ProductPopular from '../Component/ProductPopular';
+import ProductSelected from '../Component/SelectedProducts';
 import PopularStore from '../Component/PopularStore';
 import {colors, dimensions, font} from '../config/constant';
+import {RFValue} from 'react-native-responsive-fontsize';
+import ContactAdmin from '../Component/ContactAdmin';
 
 const ScreenDashboard = props => {
   const [dataProvinces, setDataProvinces] = useState([]);
@@ -64,7 +67,6 @@ const ScreenDashboard = props => {
 
   useEffect(() => {
     getPopularProduct(token, selectCity, val => {
-      console.log(selectCity);
       setDataPopular({
         status: true,
         data: val.data.data,
@@ -123,173 +125,6 @@ const ScreenDashboard = props => {
         height: '100%',
         backgroundColor: 'white',
       }}>
-      {/* <ModalComponent
-        ButtonCustoms={open => (
-          <TouchableOpacity
-            onPress={() => {
-              open.open();
-              getProvinces(token, res => setDataProvinces(res.data.data));
-            }}
-            style={{
-              position: 'absolute',
-              zIndex: 50,
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              padding: adjust(8),
-              borderRadius: 2,
-              backgroundColor: 'green',
-            }}>
-            <Marker name="map-marker" size={20} color="white" />
-            <Text style={{fontSize: adjust(10), marginLeft: 4, color: 'white'}}>
-              Global
-            </Text>
-          </TouchableOpacity>
-        )}
-        isTransparent={true}
-        ContainerStyleContent={{
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        ContentCustoms={close => {
-          return (
-            <View
-              style={{
-                padding: adjust(10),
-                backgroundColor: 'white',
-                width: WidthScreen * 0.8,
-                alignItems: 'center',
-                borderRadius: adjust(5),
-              }}>
-              <Image
-                source={require('../Assets/Images/map.png')}
-                style={{
-                  width: adjust(100),
-                  height: adjust(100),
-                  resizeMode: 'contain',
-                }}
-              />
-              <Text
-                style={{
-                  fontSize: adjust(13),
-                  fontWeight: '600',
-                  color: 'black',
-                }}>
-                Pilih Lokasi Belanja Kamu
-              </Text>
-              <Text
-                style={{
-                  fontSize: adjust(13),
-                  fontWeight: '300',
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                Pilih lokasi kamu mau berbelanja, tenang kamu bisa pilih global
-                sehingga kamu bisa memilih barang selain dari kota yang dipilih
-              </Text>
-              <View
-                style={{
-                  width: '100%',
-                  borderRadius: 4,
-                  borderWidth: 1,
-                  marginVertical: 8,
-                  backgroundColor: Gray,
-                }}>
-                <Picker
-                  selectedValue={selectedValue}
-                  onValueChange={itemValue => {
-                    setSelectedValue(itemValue);
-                    getCity(token, itemValue, val =>
-                      setDataCity(val.data.data),
-                    );
-                  }}>
-                  {dataProvinces.map((val, index) => (
-                    <Picker.Item
-                      key={index}
-                      style={{fontSize: adjust(10), fontWeight: '400'}}
-                      label={val.provinsi}
-                      value={val.provinsi}
-                    />
-                  ))}
-                </Picker>
-              </View>
-              <View
-                style={{
-                  width: '100%',
-                  borderRadius: 4,
-                  borderWidth: 1,
-                  marginVertical: 8,
-                  backgroundColor: Gray,
-                }}>
-                <Picker
-                  selectedValue={selectCity}
-                  onValueChange={itemValue => {
-                    setSelectCity(itemValue);
-                    // getCity(token, itemValue, val =>
-                    //   setDataCity(val.data.data),
-                    // );
-                  }}>
-                  {dataCity.map((val, index) => (
-                    <Picker.Item
-                      key={index}
-                      style={{fontSize: adjust(10), fontWeight: '400'}}
-                      label={val.kota}
-                      value={val.kota}
-                    />
-                  ))}
-                </Picker>
-              </View>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  marginTop: adjust(10),
-                }}>
-                <TouchableOpacity
-                  onPress={() => close.close()}
-                  style={{
-                    flex: 1,
-                    borderWidth: 1,
-                    borderColor: 'red',
-                    padding: adjust(10),
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginRight: adjust(2),
-                  }}>
-                  <Text style={{fontSize: adjust(10), color: 'red'}}>
-                    Tutup
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    postCityPreferenc(
-                      token,
-                      {
-                        preference_city: selectCity,
-                        preference_province: selectedValue,
-                      },
-                      val => console.log(val),
-                    )
-                  }
-                  style={{
-                    flex: 1,
-                    backgroundColor: blueB2C,
-                    padding: adjust(10),
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginLeft: adjust(2),
-                  }}>
-                  <Text style={{fontSize: adjust(10), color: 'white'}}>
-                    Mulai Berbelanja
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          );
-        }}
-      /> */}
       <FlatList
         ListHeaderComponent={() => {
           return (
@@ -300,8 +135,12 @@ const ScreenDashboard = props => {
                 <CategoryPopular props={navigation} />
                 {/* PRODUCT POPULAR CONTENT */}
                 <ProductPopular props={navigation} />
+                {/* PRODUCT PILIHAN */}
+                <ProductSelected props={navigation} />
                 {/* TOKO POPULAR CONTENT */}
                 <PopularStore props={navigation} />
+                {/* CONTACT ADMIN */}
+
                 <Text
                   style={{
                     fontSize: adjust(font.size.small),
@@ -362,7 +201,7 @@ const ScreenDashboard = props => {
               key={item.id}
               style={{
                 width: '50%',
-                height: dimensions.height * 0.3,
+                height: dimensions.height * 0.32,
                 paddingHorizontal: adjust(4),
                 paddingVertical: adjust(6),
                 marginVertical: adjust(6),
@@ -391,19 +230,21 @@ const ScreenDashboard = props => {
               <TouchableOpacity
                 onPress={LoadMoreProduct}
                 style={{
-                  paddingVertical: adjust(5),
-                  paddingHorizontal: adjust(10),
-                  backgroundColor: blueB2C,
+                  backgroundColor: colors.primaryBlue,
+                  padding: RFValue(6),
                   borderRadius: 5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
                 {muatbanyakLoading ? (
-                  <ActivityIndicator color={'white'} size={adjust(10)} />
+                  <ActivityIndicator color={'white'} />
                 ) : (
                   <Text
                     style={{
-                      fontSize: adjust(11),
-                      color: 'white',
+                      fontSize: RFValue(font.size.mini),
                       fontWeight: 'bold',
+                      fontFamily: font.fontFamily.poppinsThin,
+                      color: colors.white,
                     }}>
                     Muat Lebih Banyak
                   </Text>
@@ -413,6 +254,7 @@ const ScreenDashboard = props => {
           );
         }}
       />
+      <ContactAdmin props={navigation} />
     </SafeAreaView>
   );
 };

@@ -1083,11 +1083,12 @@ export default function ScreenDetailBarang(props) {
                             borderRightColor: 'white',
                           },
                         ]}>
-                        <Cart
+                        {/* <Cart
                           name="add-shopping-cart"
                           size={24}
                           color={'white'}
-                        />
+                        /> */}
+                        <Text style={styles.buttonTitle}> keranjang</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() =>
@@ -1096,11 +1097,12 @@ export default function ScreenDetailBarang(props) {
                           })
                         }
                         style={styles.buttonCheckout}>
-                        <Chat
+                        {/* <Chat
                           name="ios-chatbubble-ellipses-outline"
                           size={24}
                           color={'white'}
-                        />
+                        /> */}
+                        <Text style={styles.buttonTitle}> Chat</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() => setModalBuy(true)}
@@ -1113,7 +1115,7 @@ export default function ScreenDetailBarang(props) {
                             borderLeftColor: 'white',
                           },
                         ]}>
-                        <Text style={styles.buttonTitle}> Pesan Sekarang</Text>
+                        <Text style={styles.buttonTitle}> Beli</Text>
                       </TouchableOpacity>
                     </View>
                   </View>

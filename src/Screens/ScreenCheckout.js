@@ -758,7 +758,7 @@ const ScreenCheckout = ({navigation}) => {
 
               {dataCheckout.data.length != selectShipping.length && (
                 <Text style={{color: 'red', fontSize: RFValue(10)}}>
-                  pilih pengiriman belum lengkap !
+                  pilih pengiriman terlebih dahulu !
                 </Text>
               )}
               {selectPayment && (

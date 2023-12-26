@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "android/app/src/main/assets/fonts/index.js",
+      "sha1": "fc54a93e82824ea4c9800d7237e8662db032d98a"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/OFL.txt",
+      "sha1": "8d6c34b70e3d638c82d7b5aba3f847f7d6d2c831"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-Bold.ttf",
+      "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-ExtraBold.ttf",
+      "sha1": "4b5c0750f073abd576413a0898d3b95adaf199c8"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-ExtraLight.ttf",
+      "sha1": "85af6582a7e6155917c605f9d3fed68c02b23b06"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-Light.ttf",
+      "sha1": "e247a92158e112f8bf7b638c8d95381d66b00dbb"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-Medium.ttf",
+      "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-Regular.ttf",
+      "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-SemiBold.ttf",
+      "sha1": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d"
+    },
+    {
+      "path": "android/app/src/main/assets/fonts/Poppins-Thin.ttf",
+      "sha1": "09ba4dcd5509c8085bf88c665dcc51cbdfced27b"
+    }
+  ]
+}

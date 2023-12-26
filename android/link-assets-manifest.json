@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "android/app/src/main/fonts/index.js",
+      "sha1": "ad652d9632f11365daa23601fa26c9ea5795a51d"
+    },
+    {
+      "path": "android/app/src/main/fonts/Popincourt 1981 - Read Me.txt",
+      "sha1": "e09029d2564d523b1d930e3310ebebab93b8e577"
+    },
+    {
+      "path": "android/app/src/main/fonts/PopincourtHi.ttf",
+      "sha1": "72c52597cb1ca016e015bff564644fc9bd85b4f8"
+    },
+    {
+      "path": "android/app/src/main/fonts/PopincourtLo.ttf",
+      "sha1": "d56c3b8e527889d08155e45eaaa03077a67ec7d7"
+    },
+    {
+      "path": "android/app/src/main/fonts/PopincourtMd.ttf",
+      "sha1": "0cac84272e8b76a4e321b3c5ccd3f73858720e5d"
+    }
+  ]
+}

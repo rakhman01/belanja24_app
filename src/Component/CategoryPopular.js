@@ -33,51 +33,6 @@ const CategoryPopular = ({props}) => {
   console.log(data);
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Kategori Populer</Text> */}
-      {/* <View style={styles.content}>
-        {[
-          {name: 'BukAllLogo: '/'},
-          {name: 'ClothinAllLogo: '/'},
-          {name: 'Personal CarAllLogo: '/'},
-          {name: 'Rumah & DapuAllLogo: '/'},
-          {name: 'ElektroniAllLogo: '/'},
-          {name: 'SportAllLogo: '/'},
-          {name: 'Semua KategorAllLogo: '/'},
-        ].map((val, index) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                val.name === 'Semua Kategory'
-                  ? navigation.navigate('Categories')
-                  : navigation.navigate('Pencarian', {
-                      searchQuery: val.name,
-                    })
-              }
-              key={index}
-              style={{
-                width: adjust(40),
-                borderWidth: 1,
-                paddingVertical: adjust(8),
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: adjust(2),
-                borderRadius: 5,
-                borderColor: colors.grey,
-              }}>
-              <Image source={AllLogo} style={{width: adjust(50)}} />
-              <Text
-                style={{
-                  fontSize: adjust(8),
-                  textAlign: 'center',
-                  color: 'black',
-                }}>
-                {val.name}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View> */}
       <FlatList
         style={{width: '100%'}}
         data={data}

@@ -8,16 +8,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {colors, dimensions, font} from '../config/constant';
-import {getPopularProduct} from '../Assets/API/getAPI';
+import {getSelectedProduct} from '../Assets/API/getAPI';
 import Icon from 'react-native-vector-icons/Entypo';
 import Star from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-const ProductPopular = ({props}) => {
+const ProductSelected = ({props}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getPopularProduct('GLOBAL', val => {
+    getSelectedProduct(val => {
       setData(val.data.data);
     });
   }, []);
@@ -25,7 +25,7 @@ const ProductPopular = ({props}) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Produk Populer</Text>
+        <Text style={styles.title}>Produk Pilihan</Text>
         <FlatList
           data={data}
           renderItem={({item}) => (
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '100%',
-    height: dimensions.height * 0.3,
+    height: dimensions.height * 0.32,
     paddingVertical: RFValue(3),
     paddingHorizontal: RFValue(2),
     backgroundColor: colors.grey,
@@ -158,6 +158,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: RFValue(2),
   },
+  discountText: {
+    fontSize: RFValue(font.size.mini),
+    fontFamily: font.fontFamily.poppinsLight,
+    color: font.colors.danger,
+    fontWeight: '400',
+    marginBottom: RFValue(2),
+  },
   provider: {
     fontSize: RFValue(font.size.mini),
     fontFamily: font.fontFamily.poppinsExtraBold,
@@ -182,4 +189,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductPopular;
+export default ProductSelected;

@@ -15,6 +15,14 @@ export const getPopularProduct = async (slug, callback) => {
     })
     .catch(err => console.log(err));
 };
+
+export const getSelectedProduct = async callback => {
+  await API2.get('se-engine/feed/product/bambang')
+    .then(product => {
+      callback(product);
+    })
+    .catch(err => callback([]));
+};
 export const getPopularStore = async (slug, callback) => {
   await API.get('/guest-sys/fade/featured-provider', {
     params: {

@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ChatIcon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {font} from '../config/constant';
+import {colors, font} from '../config/constant';
 
 const SearchBarTop = props => {
   const {navigation} = props;
@@ -17,7 +17,7 @@ const SearchBarTop = props => {
       style={{
         width: '100%',
         height: HeightScreen * 0.07,
-        backgroundColor: blueB2C,
+        backgroundColor: colors.darkWhite,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
@@ -54,6 +54,9 @@ const SearchBarTop = props => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
+            borderWidth: 1,
+            borderRadius: RFValue(4),
+            borderColor: colors.darkGrey,
           }}>
           <TextInput
             style={{
@@ -79,9 +82,9 @@ const SearchBarTop = props => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderLeftWidth: 1,
               backgroundColor: 'white',
-              borderLeftColor: 'gray',
+              borderLeftWidth: 1,
+              borderLeftColor: colors.darkGrey,
               borderTopRightRadius: 5,
               borderBottomRightRadius: 5,
             }}>
