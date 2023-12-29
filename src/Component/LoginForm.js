@@ -4,27 +4,21 @@ import {
   Pressable,
   TextInput,
   StyleSheet,
-  Button,
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Formik} from 'formik';
 import * as Keychain from 'react-native-keychain';
 import {useState} from 'react';
 import {inquiryBasic, loginBasic} from '../Assets/API/postAPI';
 import DeviceInfo from 'react-native-device-info';
 import {LoginSchema} from '../Assets/ValidationSchema';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {validate} from '../Assets/API/getAPI';
 import {colors, dimensions, font} from '../config/constant';
 import ToastModal from './ToastModal';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
 import {RFValue} from 'react-native-responsive-fontsize';
 
 const LoginForm = ({props}) => {
@@ -32,33 +26,6 @@ const LoginForm = ({props}) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      scopes: ['email'],
-      webClientId:
-        '530479274730-lt0uq801ehu22317nn9ff1o24ibjrah4.apps.googleusercontent.com',
-    });
-  }, []);
-
-  const Login = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
-    } catch (error) {
-      console.log(error, 'error');
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
-  };
 
   return (
     <>
@@ -173,6 +140,11 @@ const LoginForm = ({props}) => {
                 <Text style={styles.buttonText}>Login</Text>
               )}
             </TouchableOpacity>
+            <Text
+              onPress={() => props.navigate('AppStackScreen')}
+              style={styles.skipText}>
+              Skip Login
+            </Text>
             <View
               style={{
                 display: 'flex',
@@ -189,12 +161,6 @@ const LoginForm = ({props}) => {
           </View>
         )}
       </Formik>
-      {/* <GoogleSigninButton
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={Login}
-        // disabled={false}
-      /> */}
       <ToastModal props={{modalVisible, setModalVisible, message}}></ToastModal>
     </>
   );
@@ -231,6 +197,14 @@ const styles = StyleSheet.create({
   directiveText: {
     fontSize: RFValue(font.size.small),
     fontFamily: font.fontFamily.poppinsThin,
+    color: font.colors.fontBlack,
+  },
+  skipText: {
+    fontSize: RFValue(font.size.small),
+    marginTop: RFValue(8),
+    textAlign: 'center',
+    fontFamily: font.fontFamily.poppinsBold,
+    fontWeight: 'bold',
     color: font.colors.fontBlack,
   },
   commandText: {

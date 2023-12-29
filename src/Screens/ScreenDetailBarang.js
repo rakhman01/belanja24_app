@@ -1225,14 +1225,7 @@ export default function ScreenDetailBarang(props) {
                 width: '50%',
                 padding: RFValue(5),
               }}>
-              <CardProduct
-                actions={() =>
-                  navigation.push('DetailBarang', {
-                    slug: item.slug,
-                  })
-                }
-                {...item}
-              />
+              <CardProduct props={{...item, navigation}} />
             </View>
           );
         }}

@@ -19,7 +19,6 @@ import {
   logoB2CLink,
   WidthScreen,
 } from '../Assets/utils';
-import LoginForm from '../Component/LoginForm';
 import RegisterForm from '../Component/RegisterForm';
 import {useDispatch, useSelector} from 'react-redux';
 import {SvgUri} from 'react-native-svg';
@@ -49,21 +48,27 @@ const ScreenAccount = props => {
   });
   const [page, setPage] = useState('account');
   const [address, setAddress] = useState({status: true, data: []});
-  const [add, setHandleRefresh] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getProfile(isToken, profile => {
-      setDataUser({
-        ava: profile.ava,
-        name: profile.name,
-        email: profile.email,
-        phone: profile.phone,
-      });
+      if (profile !== null) {
+        setDataUser({
+          ava: profile.ava,
+          name: profile.name,
+          email: profile.email,
+          phone: profile.phone,
+        });
+      }
     });
     const getToken = async () => {
       try {
         const credentials = await Keychain.getGenericPassword();
+        console.log(credentials.password, 'lol');
+        if (credentials.password === null) {
+          navigation.navigate('AuthStackScreen');
+          dispatch({type: 'logout'});
+        }
         dispatch({
           type: 'setToken',
           data: credentials.password,
@@ -75,7 +80,7 @@ const ScreenAccount = props => {
     getToken();
 
     getAddress(isToken, setAddress);
-  }, [isToken != '', address.status, isFocus]);
+  }, [isToken, address.status, isFocus]);
 
   const handleLogout = async () => {
     await Keychain.setGenericPassword('belanja24', 'null');

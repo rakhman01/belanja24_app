@@ -206,14 +206,7 @@ const ScreenDashboard = props => {
                 paddingVertical: adjust(6),
                 marginVertical: adjust(6),
               }}>
-              <CardProduct
-                actions={() => {
-                  navigation.push('DetailBarang', {
-                    slug: item.slug,
-                  });
-                }}
-                {...item}
-              />
+              <CardProduct props={{...item, navigation}} />
             </View>
           ) : null;
         }}

@@ -160,7 +160,7 @@ export const getProfile = async (token = '', callback) => {
     },
   })
     .then(profile => callback(profile.data.data))
-    .catch(err => console.log(err));
+    .catch(err => callback(null));
 };
 export const getDataCart = async (token = '', callback) => {
   await API.get(`/customer-sys/buy-process/cart/index`, {

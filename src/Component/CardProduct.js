@@ -5,13 +5,12 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Star from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-const CardProduct = props => {
-  const {actions} = props;
-
+const CardProduct = ({...val}) => {
+  let {props} = val;
   return (
     <TouchableOpacity
       onPress={() => {
-        actions.push('DetailBarang', {
+        props.navigation.push('DetailBarang', {
           slug: props.slug,
         });
       }}
