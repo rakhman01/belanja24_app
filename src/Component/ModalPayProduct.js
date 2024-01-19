@@ -73,20 +73,27 @@ const ModalPayProduct = ({props}) => {
                 }}>
                 {data.price_f}
               </Text>
+              {/* <View
+                style={{
+                  height: RFValue(30),
+                  overflow: 'scroll',
+                }}> */}
               <Text
+                numberOfLines={6}
+                ellipsizeMode="tail"
                 style={{
                   fontSize: font.size.small,
                   color: font.colors.fontBlack,
                 }}>
                 {data.description}
               </Text>
+              {/* </View> */}
               <Text
                 style={{
                   fontSize: font.size.small,
                   fontWeight: font.weight.medium,
                   color: GrayMedium,
                 }}>
-                {console.log(data)}
                 Stok: {data.stock}
               </Text>
             </View>
@@ -238,7 +245,7 @@ const styles = StyleSheet.create({
   },
   cardView: {
     width: WidthScreen * 1,
-    height: HeightScreen * 0.4,
+    height: HeightScreen * 0.5,
     padding: RFValue(8),
     backgroundColor: 'white',
     paddingHorizontal: RFValue(6),
@@ -246,7 +253,7 @@ const styles = StyleSheet.create({
   },
   cartItem: {
     width: '100%',
-    maxHeight: '40%',
+    maxHeight: '50%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -23,6 +23,8 @@ import {getDetailProductStore, getDetailStore} from '../Assets/API/getAPI';
 import {FlatList} from 'react-native';
 import LoadingPage from '../Component/LoadingPage';
 import {useIsFocused} from '@react-navigation/native';
+import {colors, dimensions, font} from '../config/constant';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const ScreenDetailToko = props => {
   const isFocus = useIsFocused();
@@ -31,6 +33,7 @@ const ScreenDetailToko = props => {
   const istoken = useCallback(getFromRedux('token'), []);
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+
   const [detailStore, setDetailStore] = useState({
     status: false,
     data: null,
@@ -165,7 +168,7 @@ const ScreenDetailToko = props => {
           {/* <View style={{
             filter product
           }}></View> */}
-          <View style={{height: HeightScreen * 0.7, paddingHorizontal: 4}}>
+          <View style={{height: HeightScreen * 0.6, paddingHorizontal: 4}}>
             <FlatList
               data={detailProductStore.data}
               numColumns={2}
@@ -256,23 +259,34 @@ const ScreenDetailToko = props => {
                 );
               }}
             />
+          </View>
+          {/* button load more */}
+          <View
+            style={{
+              // flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: RFValue(10),
+            }}>
             <TouchableOpacity
-              onPress={() => LoadMoreProduct()}
+              onPress={LoadMoreProduct}
               style={{
-                paddingVertical: adjust(5),
-                paddingHorizontal: adjust(10),
-                backgroundColor: blueB2C,
+                width: '100%',
+                height: dimensions.height * 0.05,
+                backgroundColor: colors.primaryBlue,
                 borderRadius: 5,
+                justifyContent: 'center',
                 alignItems: 'center',
               }}>
               {loadingMore ? (
-                <ActivityIndicator color={'white'} size={adjust(10)} />
+                <ActivityIndicator color={'white'} />
               ) : (
                 <Text
                   style={{
-                    fontSize: adjust(11),
-                    color: 'white',
+                    fontSize: RFValue(font.size.mini),
                     fontWeight: 'bold',
+                    fontFamily: font.fontFamily.poppinsThin,
+                    color: colors.white,
                   }}>
                   Muat Lebih Banyak
                 </Text>
@@ -294,9 +308,9 @@ const styles = StyleSheet.create({
   },
   cardStore: {
     // width: WidthScreen * 0.9,
-    padding: 4,
-    borderRadius: 4,
-    marginVertical: adjust(8),
+    paddingVertical: RFValue(4),
+    borderRadius: RFValue(4),
+    marginBottom: RFValue(8),
     backgroundColor: 'white',
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 1},

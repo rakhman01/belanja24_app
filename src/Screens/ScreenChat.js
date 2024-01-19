@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {adjust} from '../Assets/utils';
 import {useEffect} from 'react';
-import {getEstablished, getProfile} from '../Assets/API/getAPI';
+import {getEstablished} from '../Assets/API/getAPI';
 import {useSelector} from 'react-redux';
 
 const ScreenChat = props => {

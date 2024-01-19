@@ -284,8 +284,7 @@ export const getWaitingPayment = async (token = '', callback) => {
   })
     .then(res => callback({status: false, data: res.data.data}))
     .catch(err => {
-      console.log(err);
-      callback(false);
+      callback({status: false, data: []});
     });
 };
 export const getHistoryTransaction = async (token = '', callback) => {
@@ -296,8 +295,7 @@ export const getHistoryTransaction = async (token = '', callback) => {
   })
     .then(res => callback({status: false, data: res.data.data}))
     .catch(err => {
-      console.log(err);
-      callback(false);
+      callback({status: false, data: []});
     });
 };
 
@@ -309,8 +307,7 @@ export const getDetailTransaction = async (token = '', id, callback) => {
   })
     .then(res => callback({status: false, data: res.data.data}))
     .catch(err => {
-      console.log(err);
-      callback(false);
+      callback({status: false, data: []});
     });
 };
 
@@ -322,8 +319,7 @@ export const getHistoryShipping = async (token = '', id, callback) => {
   })
     .then(res => callback({status: false, data: res.data.data}))
     .catch(err => {
-      console.log(err);
-      callback(false);
+      callback({status: false, data: []});
     });
 };
 
@@ -337,7 +333,6 @@ export const searchQueryProduct = async (token = '', query, callback) => {
         },
       },
     );
-    // console.log(results, query);
     callback({status: true, data: results.data.hits});
   } catch (error) {
     callback({status: false, data: []});

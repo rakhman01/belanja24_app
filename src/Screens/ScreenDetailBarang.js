@@ -306,7 +306,7 @@ export default function ScreenDetailBarang(props) {
                     <View
                       style={{
                         width: '100%',
-                        height: RFValue(50),
+                        height: RFValue(58),
                         padding: RFValue(4),
                         marginLeft: RFValue(2),
                       }}>
@@ -316,7 +316,10 @@ export default function ScreenDetailBarang(props) {
                           color: GrayMedium,
                           fontWeight: '800',
                         }}>
-                        {detailBarang.data.provider.name}
+                        {detailBarang.data.provider.name.length > 14
+                          ? detailBarang.data.provider.name.substring(0, 11) +
+                            '...'
+                          : detailBarang.data.provider.name}
                       </Text>
                       <View
                         style={{
@@ -1181,7 +1184,7 @@ export default function ScreenDetailBarang(props) {
                               </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                              onPress={() => navigation.navigate('Account')}
+                              onPress={() => navigation.navigate('Login')}
                               style={{
                                 flex: 1,
                                 backgroundColor: blueB2C,

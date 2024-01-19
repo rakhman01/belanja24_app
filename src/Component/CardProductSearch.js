@@ -5,19 +5,15 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Star from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-const CardProduct = ({...val}) => {
-  let {props} = val;
-
+const CardProduct = val => {
   return (
     <TouchableOpacity
       onPress={() => {
-        props.navigation.push('DetailBarang', {
-          slug: props.slug,
-        });
+        val.actions(val.slug);
       }}
       style={styles.cardProduct}>
       <Image
-        source={{uri: props?.img}}
+        source={{uri: val?.img}}
         alt={'images'}
         style={styles.imagesProduct}
       />
@@ -27,9 +23,9 @@ const CardProduct = ({...val}) => {
           display: 'flex',
         }}>
         <Text style={styles.titleProduct}>
-          {props?.title.length > 20
-            ? props?.title.substring(0, 23) + '...'
-            : props?.title}
+          {val?.title.length > 20
+            ? val?.title.substring(0, 23) + '...'
+            : val?.title}
         </Text>
         <View style={{flexDirection: 'row'}}>
           <Star
@@ -37,16 +33,16 @@ const CardProduct = ({...val}) => {
             color={colors.yellowStar}
             style={{marginRight: RFValue(1)}}
           />
-          <Text style={styles.provider}>{props?.provider}</Text>
+          <Text style={styles.provider}>{val?.['provider.name']}</Text>
         </View>
         <View
           style={{
             marginTop: RFValue(2),
           }}>
-          <Text style={styles.price}>{props?.price_f}</Text>
-          {props?.discount_amount > 0 ? (
+          <Text style={styles.price}>{val?.price_f}</Text>
+          {val?.discount_amount > 0 ? (
             <View style={{flexDirection: 'row'}}>
-              <Text style={styles.discountText}>{props?.discount_amount}%</Text>
+              <Text style={styles.discountText}>{val?.discount_amount}%</Text>
               <Text
                 style={{
                   ...styles.discountText,
@@ -54,7 +50,7 @@ const CardProduct = ({...val}) => {
                   marginLeft: RFValue(2),
                   textDecorationLine: 'line-through',
                 }}>
-                {props?.price_b}
+                {val?.price_b}
               </Text>
             </View>
           ) : null}
@@ -66,7 +62,7 @@ const CardProduct = ({...val}) => {
               marginTop: RFValue(3),
             }}>
             {/* <Text style={{fontSize: RFValue(8), color: 'black'}}>
-          Stock {props?.stock === undefined ? 0 : props?.stock}
+          Stock {val?.stock === undefined ? 0 : val?.stock}
         </Text> */}
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Icon name="star" color={colors.yellowStar} size={18} />
@@ -74,7 +70,7 @@ const CardProduct = ({...val}) => {
             </View>
             <Text style={styles.description}>
               terjual{' '}
-              {Math.floor(Math.random() * (100 - 50 + 1)) + 20 + props?.sell}
+              {Math.floor(Math.random() * (100 - 50 + 1)) + 20 + val?.sell}
             </Text>
           </View>
         </View>

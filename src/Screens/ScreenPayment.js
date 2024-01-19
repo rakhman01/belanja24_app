@@ -129,10 +129,12 @@ const ScreenPayment = ({navigation, route}) => {
           html: `<div style="color:black;">pembayaran Manual</div>`,
         });
       }
-      setDataPayment({
-        status: true,
-        data: res.data.data,
-      });
+      if (res !== null) {
+        setDataPayment({
+          status: true,
+          data: res.data.data,
+        });
+      }
     });
   }, []);
 

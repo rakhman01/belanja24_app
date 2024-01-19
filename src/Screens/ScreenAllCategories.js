@@ -3,11 +3,8 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  FlatList,
-  SectionList,
   StyleSheet,
   SafeAreaView,
-  Image,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
@@ -88,7 +85,6 @@ const ScreenAllCategories = ({navigation}) => {
             // flexDirection: 'row',
             // flexWrap: 'wrap',
           }}>
-          {/* {console.log(detailCategories, 'detail categories')} */}
           {detailCategories.active === true &&
             detailCategories.data.map(val => (
               <View

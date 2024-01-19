@@ -30,6 +30,9 @@ const ScreenKeranjang = ({navigation}) => {
   const isFocus = useIsFocused();
 
   useEffect(() => {
+    if (token === null) {
+      navigation.push('Home');
+    }
     getDataCart(token, value => {
       const data = value.map(val => {
         return {
@@ -43,14 +46,28 @@ const ScreenKeranjang = ({navigation}) => {
         status: true,
         data,
       });
+
+      checkedAll(dataCart.data);
     });
   }, [isFocus]);
+
+  const checkedAll = params => {
+    let arr = [];
+    let items = params?.forEach(val => {
+      arr.push(...val.data);
+    });
+
+    arr?.forEach(item => {
+      let id = item.cart_id;
+      let price = item.price * item.qty;
+      checkItem(true, price, id);
+    });
+  };
 
   const incrementQty = (id, valQty, warehouse_id) => {
     addToCart(
       {product_id: id, qty: valQty, warehouse_id: warehouse_id},
       res => {
-        console.log(res);
         getDataCart(token, value => {
           const data = value.map(val => {
             return {
@@ -73,7 +90,6 @@ const ScreenKeranjang = ({navigation}) => {
     addToCart(
       {product_id: id, qty: valQty, warehouse_id: warehouse_id},
       res => {
-        // console.log(res);
         getDataCart(token, value => {
           const data = value.map(val => {
             return {
@@ -116,8 +132,8 @@ const ScreenKeranjang = ({navigation}) => {
     });
   };
   const checkItem = (status, price, id) => {
-    // console.log(status, price, id);
     if (status) {
+      console.log('jalan');
       setChecklistProduct([...checklistProduct, {id, price}]);
     } else {
       const filterTemp = checklistProduct.filter(val => val.id != id);
@@ -138,8 +154,6 @@ const ScreenKeranjang = ({navigation}) => {
     () => calculateTotalBelanja(),
     [checklistProduct],
   );
-
-  // console.log(checklistProduct);
 
   return dataCart.status ? (
     dataCart.data.length === 0 ? (
@@ -236,7 +250,6 @@ const ScreenKeranjang = ({navigation}) => {
             onPress={() => {
               const product_ids = checklistProduct.map(val => val.id);
               beliSekarang({product_ids: product_ids}, res => {
-                console.log(res.data.message);
                 if (res.data.message === 'inquiry success') {
                   navigation.navigate('Checkout');
                 } else {
@@ -265,7 +278,6 @@ const ScreenKeranjang = ({navigation}) => {
               Beli sekarang
             </Text>
           </TouchableOpacity>
-          {/* {console.log(navigation, 'navigation')} */}
           <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
             style={{

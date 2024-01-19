@@ -6,7 +6,7 @@ import {getFromRedux} from '../Assets/API/GetRedux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import LoadingPage from '../Component/LoadingPage';
 import {adjust} from '../Assets/utils';
-import CardProduct from '../Component/CardProduct';
+import CardProductSearch from '../Component/CardProductSearch';
 const ScreenPencarian = props => {
   const [dataSearch, setDataSearch] = useState({status: false, data: []});
   const isFocus = useIsFocused();
@@ -18,6 +18,11 @@ const ScreenPencarian = props => {
   } = props;
 
   const {navigation} = props;
+  let actions = callback => {
+    return navigation.push('DetailBarang', {
+      slug: callback,
+    });
+  };
 
   useEffect(() => {
     searchQueryProduct(isToken, searchQuery, res => {
@@ -26,7 +31,7 @@ const ScreenPencarian = props => {
   }, [searchQuery, isFocus]);
 
   return dataSearch.status ? (
-    dataSearch.data.length === 0 ? (
+    dataSearch.data.length < 1 ? (
       <SafeAreaView
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{color: 'black', fontSize: adjust(10)}}>
@@ -37,30 +42,20 @@ const ScreenPencarian = props => {
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <FlatList
           keyExtractor={item => {
-            // console.log(item.document.id);
             return item.document.id;
           }}
           data={dataSearch.data}
           numColumns={2}
           renderItem={({item}) => {
-            // console.log(item);
-            const {document} = item;
-
+            let {document} = item;
+            document.actions = actions;
             return (
               <View
                 style={{
                   width: '50%',
                   padding: adjust(5),
                 }}>
-                <CardProduct
-                  actions={() => {
-                    // console.log(item);
-                    navigation.push('DetailBarang', {
-                      slug: document.slug,
-                    });
-                  }}
-                  {...document}
-                />
+                <CardProductSearch {...document} />
               </View>
             );
           }}

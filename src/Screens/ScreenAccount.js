@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
+  Pressable,
 } from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import React from 'react';
@@ -34,6 +35,7 @@ import ModalComponent from '../Component/ModalComponent';
 import AddressForm from '../Component/AddressForm';
 import LoadingPage from '../Component/LoadingPage';
 import * as Keychain from 'react-native-keychain';
+import {colors, dimensions, font, image} from '../config/constant';
 
 const ScreenAccount = props => {
   const [screenView, setScreenView] = useState('login');
@@ -634,50 +636,27 @@ const ScreenAccount = props => {
     </SafeAreaView>
   ) : (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={{uri: logoB2CLink}}
-        style={{
-          width: WidthScreen * 0.4,
-          height: 50,
-          resizeMode: 'contain',
-          marginVertical: RFValue(10),
-        }}
-      />
-      {/* SCREENVIEW */}
+      <View style={styles.header}>
+        <Image source={image.logo} style={styles.logo} />
+        <Text style={styles.title}> Login Untuk Mulai Berbelanja? </Text>
+      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
       <View
         style={{
-          width: WidthScreen * 0.9,
-          borderRadius: RFValue(10),
-          // height: HeightScreen * 0.6,
-          backgroundColor: 'white',
-          paddingHorizontal: RFValue(15),
-          paddingVertical: RFValue(15),
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginTop: RFValue(12),
+          justifyContent: 'center',
         }}>
-        <Text
-          style={{
-            fontSize: RFValue(12),
-            fontWeight: 'bold',
-            color: blueB2C,
-          }}>
-          {screenView === 'login'
-            ? 'Login Ke Akun Anda'
-            : 'Daftarkan Akun Anda'}
-        </Text>
-        <Text
-          style={{
-            fontSize: RFValue(12),
-            fontWeight: 'bold',
-            color: blueB2C,
-          }}>
-          Selamat datang di belanja 24
-        </Text>
-        {/* FORM VIEW */}
-        {screenView === 'register' && (
-          <RegisterForm
-            navigation={navigation}
-            gotoLogin={() => setScreenView('login')}
-          />
-        )}
+        <Text style={styles.directiveText}>belum punya akun?</Text>
+        <Pressable onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.commandText}>Daftar</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -690,7 +669,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: blueB2C,
+    backgroundColor: colors.background,
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: dimensions.width * 0.3,
+    // height: dimensions.height * 0.1,
+    resizeMode: 'contain',
+    marginBottom: RFValue(12),
+  },
+  title: {
+    fontSize: font.size.large,
+    // fontWeight: '700',
+    color: colors.black,
+    fontFamily: font.fontFamily.poppinsSemiBold,
   },
   content: {
     marginTop: 10,
@@ -722,6 +718,26 @@ const styles = StyleSheet.create({
     fontSize: RFValue(12),
     fontWeight: '300',
     color: 'black',
+  },
+  button: {
+    width: dimensions.width * 0.9,
+    backgroundColor: colors.primaryBlue,
+    padding: RFValue(6),
+    marginTop: RFValue(8),
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: RFValue(font.size.small),
+    fontWeight: 'bold',
+    fontFamily: font.fontFamily.poppinsThin,
+    color: colors.white,
+  },
+  directiveText: {
+    fontSize: RFValue(font.size.small),
+    fontFamily: font.fontFamily.poppinsThin,
+    color: font.colors.fontBlack,
   },
 });
 

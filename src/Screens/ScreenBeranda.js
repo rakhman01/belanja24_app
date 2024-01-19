@@ -96,7 +96,6 @@ const ScreenDashboard = props => {
       setLoad(load + 1);
       getMostLikeProduct(token, load, selectCity, val => {
         setMuatBanyakLoading(false);
-        console.log(val, 'value');
         setDataMostLikeProduct({
           status: true,
           data: [...dataMostLikeProduct.data, ...val.data.data],

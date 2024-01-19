@@ -57,7 +57,9 @@ const CardKeranjang = ({
                 fontWeight: 'bold',
                 color: 'black',
               }}>
-              {item.title.substring(20, item.title.length) + '...'}
+              {item.title.length > 20
+                ? item.title.substring(0, item.title.length) + '...'
+                : item.title}
             </Text>
             <Text
               style={{
